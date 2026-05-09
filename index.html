@@ -508,67 +508,42 @@
     .s6-right {
       padding: var(--pad-y) 48px var(--pad-y) 48px;
       display: grid;
-      grid-template-rows: repeat(4, 1fr);
-      gap: 14px;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 20px;
     }
 
-    .s6-strip {
+    .s6-icon-card {
+      background: var(--c-dark);
+      border: 1.5px solid rgba(178,134,34,0.28);
+      border-radius: 10px;
       display: flex;
-      border: 1.5px solid rgba(178,134,34,0.55);
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: var(--sh-sm);
-      min-height: 0;
-      background: var(--c-bg-soft);
-      transition: box-shadow var(--dur-mid), border-color var(--dur-mid);
-    }
-    .s6-strip:hover { box-shadow: var(--sh-md); border-color: var(--c-gold); }
-
-    .s6-strip__img {
+      align-items: center;
+      justify-content: center;
       position: relative;
-      width: 36%;
-      flex-shrink: 0;
       overflow: hidden;
-      background: linear-gradient(135deg, rgba(178,134,34,0.18) 0%, rgba(178,134,34,0.06) 100%);
+      transition: border-color var(--dur-mid), box-shadow var(--dur-mid);
     }
-    .s6-strip__img img {
-      position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform var(--dur-slow) var(--ease-out);
+    .s6-icon-card:hover {
+      border-color: var(--c-gold);
+      box-shadow: 0 0 36px rgba(178,134,34,0.2);
     }
-    .s6-strip:hover .s6-strip__img img { transform: scale(1.06); }
 
-    .s6-strip__num {
-      position: absolute;
-      bottom: -8px; left: 6px;
-      font-family: var(--f-display);
-      font-size: 88px;
-      color: rgba(255,255,255,0.68);
+    .s6-icon-card__icon {
+      font-size: clamp(60px, 5.5vw, 88px);
+      color: var(--c-gold);
       line-height: 1;
-      text-shadow: 0 2px 14px rgba(0,0,0,0.28);
-      pointer-events: none;
-      z-index: 1;
     }
 
-    .s6-strip__body {
-      flex: 1;
-      padding: 14px 24px;
-      display: flex; flex-direction: column;
-      justify-content: center; gap: 6px;
-    }
-    .s6-strip__title {
+    .s6-icon-card__num {
+      position: absolute;
+      bottom: 8px;
+      right: 16px;
       font-family: var(--f-display);
-      font-size: 22px;
-      color: var(--c-ink);
-      line-height: 1.2;
-    }
-    .s6-strip__desc {
-      font-size: var(--t-sm);
-      color: rgba(60,60,60,0.75);
-      line-height: 1.55;
+      font-size: 52px;
+      color: rgba(178,134,34,0.18);
+      line-height: 1;
+      pointer-events: none;
     }
 
     /* ══════════════════════════════════════
@@ -1307,45 +1282,21 @@
         </div>
       </div>
       <div class="s6-right">
-        <div class="s6-strip">
-          <div class="s6-strip__img">
-            <img src="https://raw.githubusercontent.com/rgasienica/estructura-book-servicios-/main/assets/images/webp/equipo_familia.webp" alt="Consulta inicial" loading="lazy">
-            <div class="s6-strip__num">01</div>
-          </div>
-          <div class="s6-strip__body">
-            <div class="s6-strip__title">Consulta inicial</div>
-            <div class="s6-strip__desc">Visita a domicilio o taller. Medidas, presupuesto y muestras de tejido sin coste.</div>
-          </div>
+        <div class="s6-icon-card">
+          <div class="s6-icon-card__icon"><i class="fas fa-comments"></i></div>
+          <div class="s6-icon-card__num">01</div>
         </div>
-        <div class="s6-strip">
-          <div class="s6-strip__img">
-            <img src="https://raw.githubusercontent.com/rgasienica/estructura-book-servicios-/main/assets/images/webp/papel_pintado_texturas-3.webp" alt="Diseño y confirmación" loading="lazy">
-            <div class="s6-strip__num">02</div>
-          </div>
-          <div class="s6-strip__body">
-            <div class="s6-strip__title">Diseño y confirmación</div>
-            <div class="s6-strip__desc">Plano técnico, selección de tejidos y aprobación final del presupuesto.</div>
-          </div>
+        <div class="s6-icon-card">
+          <div class="s6-icon-card__icon"><i class="fas fa-swatchbook"></i></div>
+          <div class="s6-icon-card__num">02</div>
         </div>
-        <div class="s6-strip">
-          <div class="s6-strip__img">
-            <img src="https://raw.githubusercontent.com/rgasienica/estructura-book-servicios-/main/assets/images/webp/tapizado_sofa.webp" alt="Fabricación" loading="lazy">
-            <div class="s6-strip__num">03</div>
-          </div>
-          <div class="s6-strip__body">
-            <div class="s6-strip__title">Fabricación</div>
-            <div class="s6-strip__desc">Confección artesanal en taller propio. Seguimiento semanal del estado del proyecto.</div>
-          </div>
+        <div class="s6-icon-card">
+          <div class="s6-icon-card__icon"><i class="fas fa-scissors"></i></div>
+          <div class="s6-icon-card__num">03</div>
         </div>
-        <div class="s6-strip">
-          <div class="s6-strip__img">
-            <img src="https://raw.githubusercontent.com/rgasienica/estructura-book-servicios-/main/assets/images/webp/cortina_salon_biescas.webp" alt="Instalación y entrega" loading="lazy">
-            <div class="s6-strip__num">04</div>
-          </div>
-          <div class="s6-strip__body">
-            <div class="s6-strip__title">Instalación y entrega</div>
-            <div class="s6-strip__desc">Montaje profesional en tu espacio. Garantía y servicio de mantenimiento.</div>
-          </div>
+        <div class="s6-icon-card">
+          <div class="s6-icon-card__icon"><i class="fas fa-wrench"></i></div>
+          <div class="s6-icon-card__num">04</div>
         </div>
       </div>
     </section>
