@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Habitat &amp; Decor · Book de Empresa 2026</title>
   <meta name="description" content="Book profesional Habitat & Decor — Tapicería, cortinas y decoración a medida. Jaca, Pirineo Aragonés.">
+  <meta name="theme-color" content="#B28622">
+  <link rel="manifest" href="manifest.json">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -975,6 +977,71 @@
     .s11-legal a { color: var(--c-gold); }
     .s11-legal a:hover { text-decoration: underline; }
 
+    /* ── Botón PDF ── */
+    .pdf-btn {
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(178,134,34,0.65);
+      background: rgba(28,25,22,0.75);
+      color: var(--c-gold);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: all var(--dur-fast);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 14px rgba(0,0,0,0.25), inset 0 1px 0 rgba(178,134,34,0.15);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+    }
+    .pdf-btn:hover {
+      background: var(--c-gold);
+      color: var(--c-dark);
+      border-color: var(--c-gold);
+      box-shadow: 0 4px 20px rgba(178,134,34,0.45);
+      transform: scale(1.06);
+    }
+
+    /* ── Dots de navegación ── */
+    .nav-dots {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(242,239,236,0.25);
+      border: 1px solid rgba(178,134,34,0.35);
+      cursor: pointer;
+      transition: all var(--dur-fast);
+      flex-shrink: 0;
+      padding: 0;
+      min-width: 44px; min-height: 44px;
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent;
+      border: none;
+    }
+    .nav-dot::after {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(242,239,236,0.28);
+      border: 1px solid rgba(178,134,34,0.45);
+      transition: all var(--dur-fast);
+      display: block;
+    }
+    .nav-dot.active::after {
+      background: var(--c-gold);
+      border-color: var(--c-gold);
+      transform: scale(1.4);
+    }
+    .nav-dot:hover::after {
+      background: rgba(178,134,34,0.7);
+      border-color: var(--c-gold);
+    }
+
     /* ══════════════════════════════════════
        PRINT
        ══════════════════════════════════════ */
@@ -1563,10 +1630,9 @@
     <!-- ── CONTROLES ── -->
     <div class="slide-controls">
       <button class="nav-btn" id="btn-prev" disabled title="Anterior (←)">&#8592;</button>
-      <div class="slide-counter">
-        <span id="slide-current">1</span>&nbsp;/&nbsp;11
-      </div>
+      <div class="nav-dots" id="nav-dots"></div>
       <button class="nav-btn" id="btn-next" title="Siguiente (→)">&#8594;</button>
+      <a href="print.html" target="_blank" class="pdf-btn" title="Exportar PDF">PDF</a>
     </div>
 
     <button class="fullscreen-btn" id="btn-fullscreen" title="Pantalla completa (F)"><i class="fas fa-expand"></i></button>
@@ -1576,31 +1642,45 @@
 
 <script>
   const TOTAL = 11;
-  let current  = 1;
+  let current   = 1;
   let animating = false;
+  let wakeLock  = null;
+  let firstTap  = true;
 
-  const getSlides   = () => document.querySelectorAll('.slide');
-  const getFill     = () => document.getElementById('progress-fill');
-  const getCounter  = () => document.getElementById('slide-current');
-  const getBtnPrev  = () => document.getElementById('btn-prev');
-  const getBtnNext  = () => document.getElementById('btn-next');
+  const getSlides  = () => document.querySelectorAll('.slide');
+  const getFill    = () => document.getElementById('progress-fill');
+  const getBtnPrev = () => document.getElementById('btn-prev');
+  const getBtnNext = () => document.getElementById('btn-next');
+
+  /* ── Dots ── */
+  const dotsContainer = document.getElementById('nav-dots');
+  for (let i = 1; i <= TOTAL; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'nav-dot' + (i === 1 ? ' active' : '');
+    btn.setAttribute('title', 'Slide ' + i);
+    btn.setAttribute('aria-label', 'Ir al slide ' + i);
+    btn.addEventListener('click', () => goTo(i, i > current ? 'next' : 'prev'));
+    dotsContainer.appendChild(btn);
+  }
 
   function updateUI() {
-    getFill().style.width     = (current / TOTAL * 100) + '%';
-    getCounter().textContent  = current;
-    getBtnPrev().disabled     = current === 1;
-    getBtnNext().disabled     = current === TOTAL;
+    getFill().style.width = (current / TOTAL * 100) + '%';
+    getBtnPrev().disabled = current === 1;
+    getBtnNext().disabled = current === TOTAL;
+    dotsContainer.querySelectorAll('.nav-dot').forEach((d, i) => {
+      d.classList.toggle('active', i + 1 === current);
+    });
   }
 
   function goTo(n, dir) {
     if (animating || n === current || n < 1 || n > TOTAL) return;
     animating = true;
 
-    const prev     = current;
-    current        = n;
-    const slides   = getSlides();
-    const prevEl   = slides[prev - 1];
-    const nextEl   = slides[current - 1];
+    const prev   = current;
+    current      = n;
+    const slides = getSlides();
+    const prevEl = slides[prev - 1];
+    const nextEl = slides[current - 1];
 
     prevEl.classList.remove('slide--active');
     prevEl.classList.add(dir === 'next' ? 'slide--exit-left' : 'slide--exit-right');
@@ -1626,13 +1706,46 @@
     if (e.key === 'f' || e.key === 'F') toggleFullscreen();
   });
 
+  /* ── Touch mejorado ── */
   let touchStartX = 0;
-  document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-  document.addEventListener('touchend',   e => {
+  let touchStartY = 0;
+  document.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    /* Auto-fullscreen en primer toque (requiere gesto de usuario) */
+    if (firstTap) {
+      firstTap = false;
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      }
+      requestWakeLock();
+    }
+  }, { passive: true });
+
+  document.addEventListener('touchend', e => {
     const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 48) dx < 0 ? goTo(current + 1, 'next') : goTo(current - 1, 'prev');
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 48) {
+      dx < 0 ? goTo(current + 1, 'next') : goTo(current - 1, 'prev');
+    }
+  }, { passive: true });
+
+  /* ── Wake Lock ── */
+  async function requestWakeLock() {
+    try {
+      if ('wakeLock' in navigator) {
+        wakeLock = await navigator.wakeLock.request('screen');
+      }
+    } catch (_) {}
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && wakeLock === null) {
+      requestWakeLock();
+    }
   });
 
+  /* ── Fullscreen ── */
   function toggleFullscreen() {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen().catch(() => {});
@@ -1640,8 +1753,12 @@
       document.exitFullscreen();
     }
   }
-  document.getElementById('btn-fullscreen').addEventListener('click', toggleFullscreen);
+  document.getElementById('btn-fullscreen').addEventListener('click', () => {
+    toggleFullscreen();
+    requestWakeLock();
+  });
 
+  /* ── Escalado del stage ── */
   function scaleStage() {
     const stage  = document.getElementById('stage');
     const scaleX = window.innerWidth  / 1440;
@@ -1652,6 +1769,11 @@
   window.addEventListener('resize', scaleStage);
   document.addEventListener('fullscreenchange', scaleStage);
   scaleStage();
+
+  /* ── Service Worker ── */
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  }
 
   /* ── Formulario Slide 11 ── */
   (function () {
