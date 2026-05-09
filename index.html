@@ -880,15 +880,15 @@
       padding: var(--pad-y) var(--pad-x);
       display: flex; flex-direction: column;
       justify-content: flex-start; gap: 0;
-      overflow-y: auto;
+      overflow: hidden;
     }
     .s11-form-card {
-      border: 1.5px solid rgba(178,134,34,0.52);
+      border: 1.5px solid rgba(178,134,34,0.65);
       border-radius: 10px;
-      padding: 26px 30px;
+      padding: 24px 28px;
       background: var(--c-white);
       box-shadow: var(--sh-sm);
-      display: flex; flex-direction: column; gap: 10px;
+      display: flex; flex-direction: column; gap: 8px;
     }
     .s11-form-header {
       font-family: var(--f-display);
@@ -902,12 +902,13 @@
     }
     .s11-thanks-title {
       margin-top: auto;
-      padding-top: 18px;
+      padding-top: 20px;
       font-family: var(--f-display);
-      font-size: clamp(32px, 3.8vw, 58px);
-      color: var(--c-linen);
+      font-size: clamp(30px, 3.5vw, 52px);
+      color: rgba(178,134,34,0.42);
       line-height: 1.1;
       user-select: none;
+      flex-shrink: 0;
     }
 
     /* Notices — estilo web */
@@ -921,7 +922,7 @@
     .s11-form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 
     /* Grupos de campo — extraídos de contacto.html */
-    .s11-fg { margin-bottom: 0.65rem; }
+    .s11-fg { margin-bottom: 0.45rem; }
     .s11-fg label {
       display: block; font-size: 0.64rem; font-weight: 600;
       letter-spacing: 0.14em; text-transform: uppercase;
@@ -1534,7 +1535,7 @@
 
           <div class="s11-fg">
             <label for="s11Msg">Mensaje</label>
-            <textarea id="s11Msg" name="mensaje" rows="4" placeholder="Cuéntanos tu proyecto o consulta…" required></textarea>
+            <textarea id="s11Msg" name="mensaje" rows="3" placeholder="Cuéntanos tu proyecto o consulta…" required></textarea>
           </div>
 
           <button type="submit" class="s11-btn-submit">Enviar consulta <i class="fas fa-arrow-right"></i></button>
