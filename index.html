@@ -811,53 +811,81 @@
     /* ══════════════════════════════════════
        SLIDE 11 · CONTACTO
        ══════════════════════════════════════ */
-    .slide-11 { display: grid; grid-template-columns: 1fr 1fr; }
+    /* ══ SLIDE 11 · CONTACTO (rediseño) ══ */
+    .slide-11 { display: grid; grid-template-columns: 40fr 60fr; }
 
-    .s11-left {
+    .s11-info {
       background: var(--c-dark);
       padding: var(--pad-y) var(--pad-x);
       display: flex; flex-direction: column;
-      justify-content: center; gap: var(--gap-lg);
+      justify-content: center; gap: 14px;
+      overflow: hidden;
     }
     .s11-eyebrow { font-size: var(--t-xs); letter-spacing: 0.24em; text-transform: uppercase; color: var(--c-gold); }
-    .s11-title   { font-family: var(--f-display); font-size: clamp(36px, 4vw, 62px); color: var(--c-white); line-height: 1.2; }
-    .s11-body    { font-size: var(--t-sm); color: var(--c-linen); line-height: 1.75; }
+    .s11-title   { font-family: var(--f-display); font-size: clamp(28px, 3.2vw, 50px); color: var(--c-white); line-height: 1.2; margin: 0; }
 
-    .s11-contact { display: flex; flex-direction: column; gap: var(--gap-md); }
-    .s11-contact__item { display: flex; align-items: center; gap: var(--gap-md); }
-    .s11-contact__icon { font-size: 18px; color: var(--c-gold); width: 20px; text-align: center; flex-shrink: 0; }
-    .s11-contact__text { font-size: var(--t-sm); color: var(--c-linen); }
-    .s11-contact__text strong { color: var(--c-gold); }
+    .s11-contact { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+    .s11-contact li { display: flex; align-items: flex-start; gap: 10px; font-size: var(--t-xs); color: var(--c-linen); line-height: 1.5; }
+    .s11-contact li i { color: var(--c-gold); width: 16px; text-align: center; flex-shrink: 0; margin-top: 3px; }
+    .s11-contact li a { color: var(--c-linen); text-decoration: none; }
+    .s11-contact li a:hover { color: var(--c-gold); }
 
-    .s11-cta {
-      margin-top: var(--gap-sm);
-      display: inline-block;
-      background: var(--c-gold);
-      color: var(--c-dark);
-      font-weight: 600;
-      font-size: var(--t-sm);
-      padding: 16px 36px;
-      border-radius: 3px;
-      letter-spacing: 0.06em;
-      text-decoration: none;
-      transition: opacity var(--dur-fast);
-      width: fit-content;
-    }
-    .s11-cta:hover { opacity: 0.88; }
+    .s11-hours { border-top: 1px solid rgba(178,134,34,0.25); padding-top: 10px; }
+    .s11-hours__label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-gold); margin-bottom: 6px; }
+    .s11-hours table { border-collapse: collapse; width: 100%; }
+    .s11-hours td { font-size: 11px; color: var(--c-linen); padding: 2px 0; }
+    .s11-hours td:first-child { color: var(--c-sand); width: 70px; font-weight: 600; }
+    .s11-hours td.closed { color: rgba(210,191,129,0.45); }
 
-    .s11-social { display: flex; align-items: center; gap: var(--gap-sm); margin-top: var(--gap-md); }
-    .s11-social__link { font-size: var(--t-xs); color: var(--c-sand); text-decoration: none; letter-spacing: 0.06em; transition: color var(--dur-fast); }
+    .s11-map { border-radius: 4px; overflow: hidden; flex-shrink: 0; }
+    .s11-map iframe { display: block; width: 100%; height: 120px; border: 0; filter: grayscale(0.3) contrast(0.95); }
+
+    .s11-social { display: flex; align-items: center; gap: var(--gap-sm); border-top: 1px solid rgba(178,134,34,0.2); padding-top: 10px; }
+    .s11-social__link { font-size: 10px; letter-spacing: 0.08em; color: var(--c-sand); text-decoration: none; text-transform: uppercase; transition: color var(--dur-fast); }
     .s11-social__link:hover { color: var(--c-gold); }
-    .s11-social__sep { color: rgba(210,191,129,0.35); font-size: 10px; }
+    .s11-social__sep { color: rgba(210,191,129,0.3); font-size: 9px; }
 
-    .s11-right { overflow: hidden; position: relative; }
-    .s11-right img { width: 100%; height: 100%; object-fit: cover; }
-    .s11-right::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, rgba(28,25,22,0.3), transparent);
+    .s11-form-panel {
+      background: var(--c-bg);
+      padding: var(--pad-y) var(--pad-x);
+      display: flex; flex-direction: column;
+      justify-content: center; gap: 10px;
+      overflow-y: auto;
     }
+    .s11-form-header { font-family: var(--f-display); font-size: clamp(22px, 2.4vw, 38px); color: var(--c-ink); line-height: 1.2; }
+    .s11-form-sub { font-size: var(--t-xs); color: var(--c-sand); letter-spacing: 0.04em; }
+
+    .s11-form-notice { font-size: var(--t-xs); padding: 8px 12px; border-radius: 3px; display: none; }
+    .s11-form-notice.ok  { background: rgba(178,134,34,0.12); color: var(--c-gold); display: block; }
+    .s11-form-notice.err { background: rgba(180,60,60,0.1); color: #b43c3c; display: block; }
+
+    .s11-form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .s11-fg { display: flex; flex-direction: column; gap: 4px; }
+    .s11-fg label { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--c-ink); font-weight: 600; }
+    .s11-fg input, .s11-fg textarea {
+      font-family: var(--f-body); font-size: var(--t-sm);
+      background: var(--c-white); color: var(--c-ink);
+      border: 1px solid var(--c-linen); border-radius: 3px;
+      padding: 8px 12px; outline: none;
+      transition: border-color var(--dur-fast);
+    }
+    .s11-fg input:focus, .s11-fg textarea:focus { border-color: var(--c-gold); }
+    .s11-fg input.invalid, .s11-fg textarea.invalid { border-color: #b43c3c; }
+    .s11-fg textarea { resize: none; }
+
+    .s11-btn-submit {
+      font-family: var(--f-body); font-size: var(--t-sm); font-weight: 600;
+      background: var(--c-gold); color: var(--c-dark);
+      border: none; border-radius: 3px;
+      padding: 13px 28px; cursor: pointer; letter-spacing: 0.06em;
+      transition: opacity var(--dur-fast); align-self: flex-start;
+    }
+    .s11-btn-submit:hover { opacity: 0.88; }
+    .s11-btn-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    .s11-legal { font-size: 10px; color: var(--c-sand); line-height: 1.5; }
+    .s11-legal a { color: var(--c-sand); text-decoration: underline; }
 
     /* ══════════════════════════════════════
        PRINT
@@ -1356,48 +1384,87 @@
          SLIDE 11 · CONTACTO
          ════════════════════════════════════ -->
     <section class="slide slide-11">
-      <div class="s11-left">
+
+      <!-- Columna izquierda: información + horarios + mapa -->
+      <div class="s11-info">
         <div class="s11-eyebrow">Contacto</div>
-        <div class="s11-title">¿Hablamos de<br>tu proyecto?</div>
+        <h2 class="s11-title">¿Hablamos de<br>tu proyecto?</h2>
         <div class="rule"></div>
-        <div class="s11-body">
-          Consulta inicial sin compromiso. Visita nuestro taller en Jaca o te visitamos en tu espacio.
+
+        <ul class="s11-contact">
+          <li><i class="fas fa-map-marker-alt"></i><span><strong>C/ Domingo Miral, 1 · 22700 Jaca</strong><br>Aragón, España</span></li>
+          <li><i class="fas fa-phone"></i><a href="tel:+34974288787">+34 974 288 787</a></li>
+          <li><i class="fab fa-whatsapp"></i><a href="https://wa.me/34630908883" target="_blank">+34 630 908 883</a></li>
+          <li><i class="fas fa-envelope"></i><a href="mailto:tienda@habitatdecor.es">tienda@habitatdecor.es</a></li>
+        </ul>
+
+        <div class="s11-hours">
+          <div class="s11-hours__label"><i class="fas fa-clock"></i> Horario</div>
+          <table>
+            <tr><td>Lun – Sáb</td><td>10:30–13:30 &nbsp;/&nbsp; 17:00–20:00</td></tr>
+            <tr><td>Domingo</td><td class="closed">Cerrado</td></tr>
+          </table>
         </div>
-        <div class="s11-contact">
-          <div class="s11-contact__item">
-            <div class="s11-contact__icon"><i class="fas fa-map-marker-alt"></i></div>
-            <div class="s11-contact__text"><strong>Showroom:</strong> C/ Domingo Miral, 1 · 22700 Jaca</div>
-          </div>
-          <div class="s11-contact__item">
-            <div class="s11-contact__icon"><i class="fas fa-phone"></i></div>
-            <div class="s11-contact__text"><strong>Teléfono:</strong> +34 974 288 787</div>
-          </div>
-          <div class="s11-contact__item">
-            <div class="s11-contact__icon"><i class="fab fa-whatsapp"></i></div>
-            <div class="s11-contact__text"><strong>WhatsApp:</strong> +34 630 908 883</div>
-          </div>
-          <div class="s11-contact__item">
-            <div class="s11-contact__icon"><i class="fas fa-envelope"></i></div>
-            <div class="s11-contact__text"><strong>Email:</strong> tienda@habitatdecor.es</div>
-          </div>
-          <div class="s11-contact__item">
-            <div class="s11-contact__icon"><i class="fas fa-clock"></i></div>
-            <div class="s11-contact__text"><strong>Horario Showroom:</strong> Lun–Sáb 10:30–13:30 y 17:00–20:00</div>
-          </div>
+
+        <div class="s11-map">
+          <iframe
+            src="https://maps.google.com/maps?q=Calle+Domingo+Miral+1+Jaca+22700+Espa%C3%B1a&output=embed&hl=es&z=16"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Ubicación Habitat &amp; Decor · Jaca">
+          </iframe>
         </div>
-        <a class="s11-cta" href="mailto:tienda@habitatdecor.es">Solicitar presupuesto</a>
+
         <div class="s11-social">
-          <a href="https://instagram.com/habitatdecorjaca/" class="s11-social__link">Instagram</a>
+          <a href="https://instagram.com/habitatdecorjaca/" class="s11-social__link" target="_blank">Instagram</a>
           <span class="s11-social__sep">·</span>
-          <a href="https://habitatdecor.es" class="s11-social__link">habitatdecor.es</a>
+          <a href="https://www.facebook.com/habitatdecor" class="s11-social__link" target="_blank">Facebook</a>
+          <span class="s11-social__sep">·</span>
+          <a href="https://habitatdecor.es" class="s11-social__link" target="_blank">habitatdecor.es</a>
         </div>
       </div>
-      <div class="s11-right">
-        <img
-          src="https://raw.githubusercontent.com/rgasienica/estructura-book-servicios-/main/assets/images/webp/furgoneta_casa_rural.webp"
-          alt="Habitat & Decor — servicio a domicilio"
-          class="slide-img" loading="lazy">
+
+      <!-- Columna derecha: formulario funcional -->
+      <div class="s11-form-panel">
+        <div class="s11-form-header">Envíanos un mensaje</div>
+        <div class="s11-form-sub">Te contestamos en menos de 24 h en día laborable.</div>
+
+        <div class="s11-form-notice" id="s11FormResponse"></div>
+
+        <form id="s11ContactForm" action="../procesar-formulario.php" method="POST" novalidate>
+          <input type="hidden" name="origen"   value="book-slide11">
+          <input type="hidden" name="servicio" value="Consulta general">
+
+          <div class="s11-form-row-2">
+            <div class="s11-fg">
+              <label for="s11Nombre">Nombre</label>
+              <input type="text"  id="s11Nombre" name="nombre"   placeholder="Tu nombre" required autocomplete="name">
+            </div>
+            <div class="s11-fg">
+              <label for="s11Email">Email</label>
+              <input type="email" id="s11Email"  name="email"    placeholder="tu@email.com" required autocomplete="email">
+            </div>
+          </div>
+
+          <div class="s11-fg">
+            <label for="s11Tel">Teléfono</label>
+            <input type="tel" id="s11Tel" name="telefono" placeholder="+34 600 000 000" autocomplete="tel">
+          </div>
+
+          <div class="s11-fg">
+            <label for="s11Msg">Mensaje</label>
+            <textarea id="s11Msg" name="mensaje" rows="4" placeholder="Cuéntanos tu proyecto o consulta…" required></textarea>
+          </div>
+
+          <button type="submit" class="s11-btn-submit">Enviar consulta <i class="fas fa-arrow-right"></i></button>
+
+          <p class="s11-legal">
+            Al enviar aceptas nuestra
+            <a href="../politica-privacidad-habitatdecor.html" target="_blank">política de privacidad</a>.
+          </p>
+        </form>
       </div>
+
     </section>
 
     <!-- ── CONTROLES ── -->
@@ -1492,6 +1559,58 @@
   window.addEventListener('resize', scaleStage);
   document.addEventListener('fullscreenchange', scaleStage);
   scaleStage();
+
+  /* ── Formulario Slide 11 ── */
+  (function () {
+    const form   = document.getElementById('s11ContactForm');
+    const notice = document.getElementById('s11FormResponse');
+    if (!form) return;
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      let valid = true;
+
+      ['s11Nombre', 's11Email', 's11Msg'].forEach(function (id) {
+        const el = document.getElementById(id);
+        if (!el.value.trim()) { el.classList.add('invalid'); valid = false; }
+        else                  { el.classList.remove('invalid'); }
+      });
+
+      const emailEl = document.getElementById('s11Email');
+      if (emailEl.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) {
+        emailEl.classList.add('invalid'); valid = false;
+      }
+
+      if (!valid) {
+        notice.textContent = 'Por favor completa los campos requeridos.';
+        notice.className   = 's11-form-notice err';
+        return;
+      }
+
+      const btn = form.querySelector('.s11-btn-submit');
+      btn.disabled = true;
+
+      try {
+        const res  = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+        const data = await res.json().catch(function () { return {}; });
+        if (res.ok && data.ok !== false) {
+          notice.textContent = data.mensaje || '¡Mensaje enviado! Te contactamos pronto.';
+          notice.className   = 's11-form-notice ok';
+          form.reset();
+        } else {
+          throw new Error(data.mensaje || 'Error al enviar');
+        }
+      } catch (err) {
+        notice.textContent = err.message || 'Error de conexión. Inténtalo de nuevo.';
+        notice.className   = 's11-form-notice err';
+        btn.disabled = false;
+      }
+    });
+
+    form.querySelectorAll('input, textarea').forEach(function (el) {
+      el.addEventListener('input', function () { el.classList.remove('invalid'); });
+    });
+  })();
 </script>
 </body>
 </html>
