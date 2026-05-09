@@ -856,6 +856,10 @@
     .s11-hours td:first-child { color: var(--c-sand); width: 80px; font-weight: 600; }
     .s11-hours td.closed { color: rgba(210,191,129,0.4); font-style: italic; }
 
+    .s11-map-sep {
+      height: 1px; flex-shrink: 0; margin: 4px 0 14px;
+      background: linear-gradient(90deg, transparent, rgba(178,134,34,0.55) 15%, rgba(178,134,34,0.55) 85%, transparent);
+    }
     .s11-map { border-radius: 4px; overflow: hidden; flex-shrink: 0; }
     .s11-map iframe { display: block; width: 100%; height: 120px; border: 0; filter: grayscale(0.35) contrast(0.95); }
 
@@ -875,18 +879,35 @@
       background: var(--c-bg);
       padding: var(--pad-y) var(--pad-x);
       display: flex; flex-direction: column;
-      justify-content: center; gap: 12px;
+      justify-content: flex-start; gap: 0;
       overflow-y: auto;
+    }
+    .s11-form-card {
+      border: 1.5px solid rgba(178,134,34,0.52);
+      border-radius: 10px;
+      padding: 26px 30px;
+      background: var(--c-white);
+      box-shadow: var(--sh-sm);
+      display: flex; flex-direction: column; gap: 10px;
     }
     .s11-form-header {
       font-family: var(--f-display);
-      font-size: clamp(26px, 2.8vw, 44px);
+      font-size: clamp(22px, 2.4vw, 38px);
       color: var(--c-ink); line-height: 1.15;
     }
     .s11-form-sub {
-      font-size: 0.88rem; font-weight: 400; line-height: 1.75;
+      font-size: 0.85rem; font-weight: 400; line-height: 1.7;
       color: var(--c-ink-soft);
-      padding-bottom: 1rem; border-bottom: 1px solid var(--c-linen);
+      padding-bottom: 0.9rem; border-bottom: 1px solid var(--c-linen);
+    }
+    .s11-thanks-title {
+      margin-top: auto;
+      padding-top: 18px;
+      font-family: var(--f-display);
+      font-size: clamp(32px, 3.8vw, 58px);
+      color: var(--c-linen);
+      line-height: 1.1;
+      user-select: none;
     }
 
     /* Notices — estilo web */
@@ -1464,6 +1485,7 @@
           </table>
         </div>
 
+        <div class="s11-map-sep"></div>
         <div class="s11-map">
           <iframe
             src="https://maps.google.com/maps?q=Calle+Domingo+Miral+1+Jaca+22700+Espa%C3%B1a&output=embed&hl=es&z=16"
@@ -1484,12 +1506,13 @@
 
       <!-- Columna derecha: formulario funcional -->
       <div class="s11-form-panel">
-        <div class="s11-form-header">Envíanos un mensaje</div>
-        <div class="s11-form-sub">Te contestamos en menos de 24 h en día laborable.</div>
+        <div class="s11-form-card">
+          <div class="s11-form-header">Envíanos un mensaje</div>
+          <div class="s11-form-sub">Te contestamos en menos de 24 h en día laborable.</div>
 
-        <div class="s11-form-notice" id="s11FormResponse"></div>
+          <div class="s11-form-notice" id="s11FormResponse"></div>
 
-        <form id="s11ContactForm" action="../procesar-formulario.php" method="POST" novalidate>
+          <form id="s11ContactForm" action="../procesar-formulario.php" method="POST" novalidate>
           <input type="hidden" name="origen"   value="book-slide11">
           <input type="hidden" name="servicio" value="Consulta general">
 
@@ -1521,6 +1544,9 @@
             <a href="../politica-privacidad-habitatdecor.html" target="_blank">política de privacidad</a>.
           </p>
         </form>
+        </div><!-- /s11-form-card -->
+
+        <div class="s11-thanks-title">Gracias por<br>tu tiempo</div>
       </div>
 
     </section>
