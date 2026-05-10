@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test PDF v2 · Habitat & Decor</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    :root {
+      --c-ink:      #3C3C3C;
+      --c-gold:     #B28622;
+      --c-sand:     #D2BF81;
+      --c-linen:    #DFD3C8;
+      --c-bg:       #F2EFEC;
+      --c-white:    #FFFFFF;
+      --c-dark:     #1C1916;
+      --c-dark2:    #2A2520;
+      --c-bg-soft:  #EDE8E2;
+      --c-ink-soft: #6B6560;
+      --c-gold-dim: rgba(178,134,34,0.14);
+      --f-display: 'Dancing Script', cursive;
+      --f-body:    'Quicksand', sans-serif;
+      --t-hero:  clamp(48px, 5vw, 88px);
+      --t-h1:    clamp(36px, 4vw, 64px);
+      --t-h2:    clamp(28px, 3vw, 52px);
+      --t-h3:    clamp(20px, 2vw, 36px);
+      --t-base:  clamp(14px, 1.4vw, 20px);
+      --t-sm:    clamp(12px, 1.2vw, 17px);
+      --t-xs:    clamp(12px, 1vw, 14px);
+      --pad-x: 72px;
+      --pad-y: 54px;
+      --gap-xs: 8px;
+      --gap-sm: 16px;
+      --gap-md: 24px;
+      --gap-lg: 40px;
+      --gap-xl: 64px;
+      --r:     3px;
+      --sh-sm: 0 2px 14px rgba(60,60,60,.08);
+      --sh-md: 0 6px 30px rgba(60,60,60,.11);
+      --ease:     cubic-bezier(.25,.46,.45,.94);
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --dur-fast: 0.18s;
+      --dur-mid:  0.35s;
+      --dur-slow: 0.60s;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #111;
+      font-family: var(--f-body);
+      color: var(--c-ink);
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+    }
+
+    img { display: block; }
+
+    .slide-wrapper {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide-stage {
+      position: relative;
+      width: 1440px;
+      height: 810px;
+      background: var(--c-bg);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.7);
+      border-radius: 3px;
+      overflow: hidden;
+      transform-origin: center center;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+    }
+
+    .slide--active { opacity: 1; pointer-events: auto; z-index: 2; }
+
+    .slide-img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+
+    .slide-1 { display: grid; grid-template-columns: 1fr 1fr; }
+
+    .s1-photo { position: relative; overflow: hidden; }
+    .s1-photo .slide-img { transform: scale(1.06); }
+    .slide--active .s1-photo .slide-img { transform: scale(1); }
+
+    .s1-content {
+      background: var(--c-dark);
+      padding: var(--pad-y) var(--pad-x);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: var(--gap-lg);
+    }
+
+    .s1-logo__mark { display: flex; align-items: center; gap: var(--gap-md); }
+    .s1-logo__img { width: 68px; height: 68px; object-fit: contain; border-radius: 50%; }
+    .s1-logo__name {
+      font-family: var(--f-display);
+      font-size: 26px;
+      color: var(--c-white);
+      line-height: 1.2;
+    }
+    .s1-logo__name span {
+      display: block;
+      font-family: var(--f-body);
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--c-sand);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .s1-gold-line { width: 56px; height: 2px; background: linear-gradient(90deg, var(--c-gold), transparent); }
+
+    .s1-claim {
+      font-family: var(--f-display);
+      font-size: clamp(40px, 4.5vw, 72px);
+      color: var(--c-white);
+      line-height: 1.15;
+    }
+    .s1-claim__gold { color: var(--c-gold); }
+
+    .s1-subclaim {
+      font-size: var(--t-xs);
+      color: var(--c-sand);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .s1-bottom {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: rgba(210,191,129,0.75);
+      letter-spacing: 0.08em;
+      margin-top: auto;
+      padding-top: var(--gap-lg);
+      border-top: 1px solid rgba(178,134,34,0.12);
+    }
+
+    .test-controls {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 900;
+    }
+
+    .test-btn {
+      padding: 12px 28px;
+      border-radius: 50px;
+      border: 1.5px solid rgba(178,134,34,0.65);
+      background: rgba(28,25,22,0.75);
+      color: var(--c-gold);
+      font-family: var(--f-body);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 14px rgba(0,0,0,0.25);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .test-btn:hover {
+      background: var(--c-gold);
+      color: var(--c-white);
+      border-color: var(--c-gold);
+      box-shadow: 0 4px 20px rgba(178,134,34,0.45);
+    }
+    .test-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .test-status {
+      font-size: 13px;
+      color: rgba(242,239,236,0.7);
+      letter-spacing: 0.04em;
+    }
+
+    .test-loader {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(28,25,22,0.85);
+      color: var(--c-gold);
+      font-family: var(--f-body);
+      font-size: 18px;
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .test-loader.show { display: flex; }
+    .test-loader .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid rgba(178,134,34,0.2);
+      border-top-color: var(--c-gold);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .capturing .test-controls { display: none !important; }
+  </style>
+</head>
+<body>
+
+<div class="slide-wrapper">
+  <div class="slide-stage" id="stage">
+
+    <section class="slide slide-1 slide--active">
+      <div class="s1-photo">
+        <img
+          src="https://raw.githubusercontent.com/rgasienica/estructura-book-servicios-/main/assets/images/webp/hero-curtain.webp"
+          alt="Cortinas a medida en salón de montaña"
+          class="slide-img">
+      </div>
+      <div class="s1-content">
+        <div class="s1-logo">
+          <div class="s1-logo__mark">
+            <img
+              src="https://raw.githubusercontent.com/rgasienica/estructura-book-servicios-/main/assets/images/webp/logo.webp"
+              alt="Habitat & Decor"
+              class="s1-logo__img">
+            <div class="s1-logo__name">
+              Habitat &amp; Decor
+              <span>Jaca · Pirineo Aragonés</span>
+            </div>
+          </div>
+        </div>
+        <div class="s1-gold-line"></div>
+        <div class="s1-claim">
+          Diseñamos ambientes<br>
+          <span class="s1-claim__gold">que cuentan historias.</span>
+        </div>
+        <div class="s1-subclaim">Tapicería · Cortinas · Decoración · Muebles auxiliares</div>
+        <div class="s1-bottom">
+          <span>habitatdecor.es</span>
+          <span>2026</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="test-controls">
+      <button class="test-btn" id="btnPdf">
+        <i class="fas fa-file-pdf"></i> Probar PDF
+      </button>
+      <span class="test-status" id="txtStatus">Slide 1 de 11</span>
+    </div>
+
+  </div>
+</div>
+
+<div class="test-loader" id="loader">
+  <div class="spinner"></div>
+  <div id="loaderMsg">Generando PDF…</div>
+</div>
+
+<script>
+  async function capturarPDF() {
+    const btn    = document.getElementById('btnPdf');
+    const loader = document.getElementById('loader');
+    const msg    = document.getElementById('loaderMsg');
+    const status = document.getElementById('txtStatus');
+    const stage  = document.getElementById('stage');
+
+    btn.disabled = true;
+    loader.classList.add('show');
+    stage.classList.add('capturing');
+    msg.textContent = 'Capturando slide…';
+
+    await new Promise(r => setTimeout(r, 80));
+
+    try {
+      const canvas = await html2canvas(stage, {
+        useCORS: true,
+        scale: 2,
+        backgroundColor: '#F2EFEC',
+        logging: false,
+      });
+
+      msg.textContent = 'Generando PDF…';
+      await new Promise(r => setTimeout(r, 30));
+
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({
+        orientation: 'landscape',
+        unit: 'px',
+        format: [1440, 810],
+      });
+
+      pdf.addImage(canvas, 'JPEG', 0, 0, 1440, 810);
+      pdf.save('test-slide1.pdf');
+
+      status.textContent = 'OK · test-slide1.pdf descargado';
+    } catch (err) {
+      status.textContent = 'Error: ' + err.message;
+      console.error(err);
+    }
+
+    stage.classList.remove('capturing');
+    loader.classList.remove('show');
+    btn.disabled = false;
+  }
+
+  document.getElementById('btnPdf').addEventListener('click', capturarPDF);
+
+  function scaleStage() {
+    const stage  = document.getElementById('stage');
+    const scaleX = window.innerWidth  / 1440;
+    const scaleY = window.innerHeight / 810;
+    stage.style.transform = `scale(${Math.min(scaleX, scaleY)})`;
+  }
+  window.addEventListener('resize', scaleStage);
+  scaleStage();
+</script>
+
+</body>
+</html>
