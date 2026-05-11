@@ -525,35 +525,40 @@
     .s6-strip:hover { box-shadow: var(--sh-md); border-color: var(--c-gold); }
 
     .s6-strip__icon {
+      position: relative;
       width: 36%;
       flex-shrink: 0;
       background: var(--c-dark2);
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 10px;
       border-right: 1px solid rgba(178,134,34,0.35);
+      overflow: hidden;
     }
     .s6-strip__icon-badge {
-      width: 56px; height: 56px;
-      border-radius: 50%;
-      background: rgba(178,134,34,0.18);
-      border: 1.5px solid var(--c-gold);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 24px;
+      font-size: 52px;
       color: var(--c-gold);
-      transition: background var(--dur-mid), transform var(--dur-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform var(--dur-mid), color var(--dur-mid);
+      z-index: 1;
     }
     .s6-strip:hover .s6-strip__icon-badge {
-      background: rgba(178,134,34,0.32);
-      transform: scale(1.08);
+      transform: scale(1.12);
+      color: var(--c-sand);
     }
     .s6-strip__icon-num {
+      position: absolute;
+      bottom: 4px;
+      right: 8px;
       font-family: var(--f-display);
-      font-size: 28px;
-      color: rgba(178,134,34,0.55);
+      font-size: 38px;
+      color: rgba(178,134,34,0.22);
       line-height: 1;
+      filter: blur(1.5px);
+      pointer-events: none;
+      z-index: 0;
     }
 
     .s6-strip__body {
