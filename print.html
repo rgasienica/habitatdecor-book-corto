@@ -3,15 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Habitat &amp; Decor · Book de Empresa 2026</title>
-  <meta name="description" content="Book profesional Habitat & Decor — Tapicería, cortinas y decoración a medida. Jaca, Pirineo Aragonés.">
-  <meta name="theme-color" content="#B28622">
-  <link rel="manifest" href="manifest.json">
+  <title>Habitat &amp; Decor · Versión Imprimible</title>
+  <meta name="description" content="Versión PDF del Book de Empresa 2026 — Habitat &amp; Decor, Jaca">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <style>
     /* ══════════════════════════════════════
@@ -64,9 +65,6 @@
       --z-fullscreen: 800;
     }
 
-    /* ══════════════════════════════════════
-       RESET & BASE
-       ══════════════════════════════════════ */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
@@ -79,9 +77,7 @@
 
     img { display: block; }
 
-    /* ══════════════════════════════════════
-       UTILIDADES GLOBALES · igual que templates
-       ══════════════════════════════════════ */
+    /* ── Global utilities ── */
     .eyebrow {
       font-size: var(--t-xs);
       font-weight: 600;
@@ -118,9 +114,7 @@
       color: rgba(60,60,60,0.85);
     }
 
-    /* ══════════════════════════════════════
-       LAYOUT — stage 1920×1080
-       ══════════════════════════════════════ */
+    /* ── Layout — stage 1440×810 ── */
     .slide-wrapper {
       position: fixed;
       inset: 0;
@@ -230,6 +224,72 @@
       display: flex; align-items: center; justify-content: center;
     }
     .fullscreen-btn:hover { background: var(--c-gold); color: var(--c-white); }
+
+    /* ── Botón PDF ── */
+    .pdf-btn {
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(178,134,34,0.65);
+      background: rgba(28,25,22,0.75);
+      color: var(--c-gold);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: all var(--dur-fast);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 14px rgba(0,0,0,0.25), inset 0 1px 0 rgba(178,134,34,0.15);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      font-family: var(--f-body);
+    }
+    .pdf-btn:hover {
+      background: var(--c-gold);
+      color: var(--c-dark);
+      border-color: var(--c-gold);
+      box-shadow: 0 4px 20px rgba(178,134,34,0.45);
+      transform: scale(1.06);
+    }
+    .pdf-btn:disabled {
+      opacity: 0.2;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    /* ── Dots de navegación ── */
+    .nav-dots {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-dot {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      flex-shrink: 0;
+      padding: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent;
+      border: none;
+    }
+    .nav-dot::after {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(242,239,236,0.28);
+      border: 1px solid rgba(178,134,34,0.45);
+      transition: all var(--dur-fast);
+      display: block;
+    }
+    .nav-dot.active::after {
+      background: var(--c-gold);
+      border-color: var(--c-gold);
+      transform: scale(1.4);
+    }
+    .nav-dot:hover::after {
+      background: rgba(178,134,34,0.7);
+      border-color: var(--c-gold);
+    }
 
     /* ══════════════════════════════════════
        SLIDE 01 · PORTADA
@@ -376,7 +436,6 @@
       display: block;
       transition: transform var(--dur-slow) var(--ease-out);
     }
-    /* Foco en personas: ajuste individual por imagen */
     .s3-photo__item:nth-child(1) img { object-position: center 20%; }
     .s3-photo__item:nth-child(2) img { object-position: center 55%; }
     .s3-photo__item:nth-child(3) img { object-position: center 30%; }
@@ -850,7 +909,6 @@
        ══════════════════════════════════════ */
     .slide-11 { display: grid; grid-template-columns: 40fr 60fr; }
 
-    /* — Panel oscuro izquierdo — */
     .s11-info {
       background: var(--c-dark);
       padding: var(--pad-y) calc(var(--pad-x) * 0.85);
@@ -911,7 +969,6 @@
     .s11-social__link:hover { color: var(--c-gold); }
     .s11-social__sep { color: rgba(210,191,129,0.3); font-size: 9px; }
 
-    /* — Panel crema derecho: formulario estilo web — */
     .s11-form-panel {
       background: var(--c-bg);
       padding: var(--pad-y) var(--pad-x) 90px;
@@ -948,7 +1005,6 @@
       flex-shrink: 0;
     }
 
-    /* Notices — estilo web */
     .s11-form-notice {
       display: none; padding: 0.9rem 1.1rem; border-radius: var(--r);
       font-size: 0.85rem; font-weight: 500;
@@ -958,7 +1014,6 @@
 
     .s11-form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 
-    /* Grupos de campo — extraídos de contacto.html */
     .s11-fg { margin-bottom: 0.45rem; }
     .s11-fg label {
       display: block; font-size: 0.64rem; font-weight: 600;
@@ -983,7 +1038,6 @@
     }
     .s11-fg textarea { resize: none; }
 
-    /* Botón — estilo web */
     .s11-btn-submit {
       width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.6rem;
       font-family: var(--f-body); font-size: 0.72rem; font-weight: 600;
@@ -999,81 +1053,45 @@
     .s11-btn-submit:hover i { transform: translateX(4px); }
     .s11-btn-submit:disabled { opacity: 0.55; cursor: not-allowed; }
 
-    /* Legal — estilo web */
     .s11-legal { margin-top: 0.25rem; font-size: 0.72rem; color: var(--c-ink-soft); line-height: 1.6; text-align: center; }
     .s11-legal a { color: var(--c-gold); }
     .s11-legal a:hover { text-decoration: underline; }
 
-    /* ── Botón PDF ── */
-    .pdf-btn {
-      width: 50px; height: 50px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(178,134,34,0.65);
-      background: rgba(28,25,22,0.75);
-      color: var(--c-gold);
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      transition: all var(--dur-fast);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 2px 14px rgba(0,0,0,0.25), inset 0 1px 0 rgba(178,134,34,0.15);
-      display: flex; align-items: center; justify-content: center;
-      text-decoration: none;
-    }
-    .pdf-btn:hover {
-      background: var(--c-gold);
-      color: var(--c-dark);
-      border-color: var(--c-gold);
-      box-shadow: 0 4px 20px rgba(178,134,34,0.45);
-      transform: scale(1.06);
-    }
+    /* ══════════════════════════════════════
+       PDF LOADER & CAPTURING
+       ══════════════════════════════════════ */
+    .capturing .slide-controls { display: none !important; }
+    .capturing .fullscreen-btn { display: none !important; }
 
-    /* ── Dots de navegación ── */
-    .nav-dots {
-      display: flex;
+    .pdf-loader {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(28,25,22,0.85);
+      color: var(--c-gold);
+      font-family: var(--f-body);
+      font-size: 18px;
+      z-index: 9999;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
     }
-    .nav-dot {
-      width: 8px; height: 8px;
+    .pdf-loader.show { display: flex; }
+    .pdf-loader .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid rgba(178,134,34,0.2);
+      border-top-color: var(--c-gold);
       border-radius: 50%;
-      background: rgba(242,239,236,0.25);
-      border: 1px solid rgba(178,134,34,0.35);
-      cursor: pointer;
-      transition: all var(--dur-fast);
-      flex-shrink: 0;
-      padding: 0;
-      min-width: 44px; min-height: 44px;
-      width: 44px; height: 44px;
-      display: flex; align-items: center; justify-content: center;
-      background: transparent;
-      border: none;
+      animation: spin 0.8s linear infinite;
     }
-    .nav-dot::after {
-      content: '';
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: rgba(242,239,236,0.28);
-      border: 1px solid rgba(178,134,34,0.45);
-      transition: all var(--dur-fast);
-      display: block;
-    }
-    .nav-dot.active::after {
-      background: var(--c-gold);
-      border-color: var(--c-gold);
-      transform: scale(1.4);
-    }
-    .nav-dot:hover::after {
-      background: rgba(178,134,34,0.7);
-      border-color: var(--c-gold);
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ══════════════════════════════════════
-       PRINT
+       PRINT STYLES
        ══════════════════════════════════════ */
     @media print {
-      .slide-controls, .fullscreen-btn, .progress-bar { display: none !important; }
+      .slide-controls, .fullscreen-btn, .progress-bar, .pdf-loader { display: none !important; }
       .slide { opacity: 1 !important; pointer-events: auto !important; position: relative !important; page-break-after: always; }
       .slide-stage { transform: none !important; box-shadow: none !important; width: 100% !important; height: auto !important; }
     }
@@ -1216,8 +1234,7 @@
         <div class="rule"></div>
         <div class="s3-title">Cuando un proyecto necesita algo más, sabemos cómo resolverlo</div>
         <div class="s3-body">
-          Nuestra relación con talleres y profesionales artesanos de confianza nos permite coordinar soluciones rápidas, precisas y adaptadas a cada espacio.<br>
-              
+          Nuestra relación con talleres y profesionales artesanos de confianza nos permite coordinar soluciones rápidas, precisas y adaptadas a cada espacio.
         </div>
         <div class="s3-signature">
           <div class="s3-signature__line"></div>
@@ -1241,7 +1258,7 @@
         <div class="rule"></div>
         <div class="s4-title">Taller familiar<br>en el corazón<br>del Pirineo.</div>
         <div class="s4-body">
-          Trabajamos desde Jaca en el Pirineo de Aragón. Un equipo de profesionales coordinados, manos expertas y un compromiso: </b>que cada proyecto se haga y se revise perfectamente antes de salir del taller.</b>
+          Trabajamos desde Jaca en el Pirineo de Aragón. Un equipo de profesionales coordinados, manos expertas y un compromiso: que cada proyecto se haga y se revise perfectamente antes de salir del taller.
         </div>
         <div class="s4-contact">
           <div class="s4-contact__item">
@@ -1301,7 +1318,7 @@
             <img src="https://github.com/rgasienica/habitat-decor-style-library/blob/main/03-assets/photography/tapiceria/cabecero_cama_acabado.jpeg?raw=true" alt="Cabeceros" loading="lazy">
           </div>
           <div class="s5-card__title">Cabeceros y textil</div>
-          <div class="s5-card__desc">Cada espacio se viste con tapicería y textil a medida que renueva sofás y crea cabeceros, paneles tapizados, colchas y cojines que completan el diseño..</div>
+          <div class="s5-card__desc">Cada espacio se viste con tapicería y textil a medida que renueva sofás y crea cabeceros, paneles tapizados, colchas y cojines que completan el diseño.</div>
         </div>
         <div class="s5-card">
           <div class="s5-card__num">05</div>
@@ -1309,7 +1326,7 @@
             <img src="https://raw.githubusercontent.com/rgasienica/estructura-book-servicios-/main/assets/images/webp/alfombra.webp" alt="Alfombras" loading="lazy">
           </div>
           <div class="s5-card__title">Alfombras y papel pintado</div>
-          <div class="s5-card__desc">Alfombras, moquetas y papel pintado a medida, con instalación profesional, corte de moqueta in situ y colocación de murales para que transformes por completo tu espacio. </div>
+          <div class="s5-card__desc">Alfombras, moquetas y papel pintado a medida, con instalación profesional, corte de moqueta in situ y colocación de murales para que transformes por completo tu espacio.</div>
         </div>
       </div>
     </section>
@@ -1334,7 +1351,7 @@
           </div>
           <div class="s6-strip__body">
             <div class="s6-strip__title">Consulta inicial</div>
-            <div class="s6-strip__desc">e visitamos o vienes a nuestro showroom: tomamos medidas, revisamos catálogos y te enseñamos muestras de tejido para que puedas tocar y comparar con los ejemplos digitales.</div>
+            <div class="s6-strip__desc">Te visitamos o vienes a nuestro showroom: tomamos medidas, revisamos catálogos y te enseñamos muestras de tejido para que puedas tocar y comparar con los ejemplos digitales.</div>
           </div>
         </div>
         <div class="s6-strip">
@@ -1353,7 +1370,7 @@
             <div class="s6-strip__icon-num">03</div>
           </div>
           <div class="s6-strip__body">
-            <div class="s6-strip__title">Puesta en marcha · Fabricación </div>
+            <div class="s6-strip__title">Puesta en marcha · Fabricación</div>
             <div class="s6-strip__desc">Ponemos tu proyecto en marcha en nuestro taller. Seguimiento semanal del estado del proyecto.</div>
           </div>
         </div>
@@ -1383,7 +1400,7 @@
       </div>
       <div class="s7-panel">
         <div class="rule"></div>
-        <div class="s7-title">Hotel Canfranc Esatción<br><span style="font-size:0.65em; color:var(--c-gold);">Gran Lujo ★★★★★</span></div>
+        <div class="s7-title">Hotel Canfranc Estación<br><span style="font-size:0.65em; color:var(--c-gold);">Gran Lujo ★★★★★</span></div>
         <div class="s7-case">
           <div class="s7-case__block">
             <div class="s7-case__label">Reto</div>
@@ -1540,15 +1557,15 @@
         </div>
         <div class="s10-specs">
           <div>
-            <div class="s10-spec__num">24h</div>
-            <div class="s10-spec__text">disponiblidad WhatsApp</div>
+            <div class="s10-spec__num">24 horas</div>
+            <div class="s10-spec__text">disponibilidad WhatsApp</div>
           </div>
           <div>
             <div class="s10-spec__num">1 día</div>
             <div class="s10-spec__text">respuesta casi inmediata</div>
           </div>
           <div>
-            <div class="s10-spec__num">48h</div>
+            <div class="s10-spec__num">48 horas</div>
             <div class="s10-spec__text">presupuesto</div>
           </div>
         </div>
@@ -1559,8 +1576,6 @@
          SLIDE 11 · CONTACTO
          ════════════════════════════════════ -->
     <section class="slide slide-11">
-
-      <!-- Columna izquierda: información + horarios + mapa -->
       <div class="s11-info">
         <div class="s11-eyebrow">Contacto</div>
         <h2 class="s11-title">¿Hablamos de<br>tu proyecto?</h2>
@@ -1600,7 +1615,6 @@
         </div>
       </div>
 
-      <!-- Columna derecha: formulario funcional -->
       <div class="s11-form-panel">
         <div class="s11-form-card">
           <div class="s11-form-header">Envíanos un mensaje</div>
@@ -1608,8 +1622,8 @@
 
           <div class="s11-form-notice" id="s11FormResponse"></div>
 
-          <form id="s11ContactForm" action="../procesar-formulario.php" method="POST" novalidate>
-          <input type="hidden" name="origen"   value="book-slide11">
+          <form id="s11ContactForm" action="procesar-formulario.php" method="POST" novalidate>
+          <input type="hidden" name="origen"   value="book-print">
           <input type="hidden" name="servicio" value="Consulta general">
 
           <div class="s11-form-row-2">
@@ -1637,14 +1651,13 @@
 
           <p class="s11-legal">
             Al enviar aceptas nuestra
-            <a href="../politica-privacidad-habitatdecor.html" target="_blank">política de privacidad</a>.
+            <a href="politica-privacidad-habitatdecor.html" target="_blank">política de privacidad</a>.
           </p>
         </form>
-        </div><!-- /s11-form-card -->
+        </div>
 
         <div class="s11-thanks-title">¡Gracias por tu tiempo!</div>
       </div>
-
     </section>
 
     <!-- ── CONTROLES ── -->
@@ -1652,13 +1665,19 @@
       <button class="nav-btn" id="btn-prev" disabled title="Anterior (←)">&#8592;</button>
       <div class="nav-dots" id="nav-dots"></div>
       <button class="nav-btn" id="btn-next" title="Siguiente (→)">&#8594;</button>
-      <a href="print.html" target="_blank" class="pdf-btn" title="Exportar PDF">PDF</a>
+      <button class="pdf-btn" id="btnPdf" onclick="generatePDF()" title="Descargar PDF"><i class="fas fa-file-pdf"></i></button>
     </div>
 
     <button class="fullscreen-btn" id="btn-fullscreen" title="Pantalla completa (F)"><i class="fas fa-expand"></i></button>
 
   </div><!-- /.slide-stage -->
 </div><!-- /.slide-wrapper -->
+
+<!-- ── LOADER PDF ── -->
+<div class="pdf-loader" id="pdfLoader">
+  <div class="spinner"></div>
+  <div id="pdfLoaderMsg">Generando PDF…</div>
+</div>
 
 <script>
   const TOTAL = 11;
@@ -1726,13 +1745,12 @@
     if (e.key === 'f' || e.key === 'F') toggleFullscreen();
   });
 
-  /* ── Touch mejorado ── */
+  /* ── Touch ── */
   let touchStartX = 0;
   let touchStartY = 0;
   document.addEventListener('touchstart', e => {
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
-    /* Auto-fullscreen en primer toque (requiere gesto de usuario) */
     if (firstTap) {
       firstTap = false;
       if (!document.fullscreenElement) {
@@ -1790,9 +1808,85 @@
   document.addEventListener('fullscreenchange', scaleStage);
   scaleStage();
 
-  /* ── Service Worker ── */
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  /* ── GENERATE PDF ── */
+  async function generatePDF() {
+    const TOTAL_SLIDES = 11;
+    const btn = document.getElementById('btnPdf');
+    const loader = document.getElementById('pdfLoader');
+    const msg = document.getElementById('pdfLoaderMsg');
+    const stage = document.getElementById('stage');
+
+    btn.disabled = true;
+    loader.classList.add('show');
+    stage.classList.add('capturing');
+
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({
+      orientation: 'landscape',
+      unit: 'px',
+      format: [1440, 810],
+    });
+
+    const slides = document.querySelectorAll('.slide');
+    const originalActive = current;
+
+    for (let i = 0; i < TOTAL_SLIDES; i++) {
+      msg.textContent = 'Capturando slide ' + (i + 1) + ' de ' + TOTAL_SLIDES + '…';
+
+      slides.forEach(function (s) {
+        s.classList.remove('slide--active');
+        s.style.opacity = '0';
+        s.style.pointerEvents = 'none';
+        s.style.display = 'none';
+      });
+
+      var slide = slides[i];
+      slide.style.display = '';
+      slide.style.opacity = '1';
+      slide.style.pointerEvents = 'auto';
+      slide.style.transform = 'none';
+      slide.classList.add('slide--active');
+
+      await new Promise(function (r) { requestAnimationFrame(r); });
+      await new Promise(function (r) { setTimeout(r, 100); });
+
+      try {
+        var canvas = await html2canvas(stage, {
+          useCORS: true,
+          scale: 2,
+          backgroundColor: '#F2EFEC',
+          logging: false,
+        });
+
+        if (i > 0) pdf.addPage();
+        pdf.addImage(canvas, 'JPEG', 0, 0, 1440, 810);
+      } catch (err) {
+        console.error('Error capturing slide ' + (i + 1), err);
+        msg.textContent = 'Error en slide ' + (i + 1);
+        break;
+      }
+    }
+
+    msg.textContent = 'Generando PDF…';
+    await new Promise(function (r) { setTimeout(r, 50); });
+
+    pdf.save('Habitat&Decor-Book-Empresa-2026.pdf');
+
+    slides.forEach(function (s) {
+      s.style.display = '';
+      s.style.opacity = '';
+      s.style.pointerEvents = '';
+      s.style.transform = '';
+      s.classList.remove('slide--active');
+    });
+
+    slides[originalActive - 1].classList.add('slide--active');
+    current = originalActive;
+    updateUI();
+
+    stage.classList.remove('capturing');
+    loader.classList.remove('show');
+    btn.disabled = false;
   }
 
   /* ── Formulario Slide 11 ── */
