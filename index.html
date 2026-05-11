@@ -524,33 +524,36 @@
     }
     .s6-strip:hover { box-shadow: var(--sh-md); border-color: var(--c-gold); }
 
-    .s6-strip__img {
-      position: relative;
+    .s6-strip__icon {
       width: 36%;
       flex-shrink: 0;
-      overflow: hidden;
-      background: linear-gradient(135deg, rgba(178,134,34,0.18) 0%, rgba(178,134,34,0.06) 100%);
+      background: var(--c-dark2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-right: 1px solid rgba(178,134,34,0.35);
     }
-    .s6-strip__img img {
-      position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform var(--dur-slow) var(--ease-out);
+    .s6-strip__icon-badge {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: rgba(178,134,34,0.18);
+      border: 1.5px solid var(--c-gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+      color: var(--c-gold);
+      transition: background var(--dur-mid), transform var(--dur-mid);
     }
-    .s6-strip:hover .s6-strip__img img { transform: scale(1.06); }
-
-    .s6-strip__num {
-      position: absolute;
-      bottom: -8px; left: 6px;
+    .s6-strip:hover .s6-strip__icon-badge {
+      background: rgba(178,134,34,0.32);
+      transform: scale(1.08);
+    }
+    .s6-strip__icon-num {
       font-family: var(--f-display);
-      font-size: 88px;
-      color: rgba(255,255,255,0.68);
+      font-size: 28px;
+      color: rgba(178,134,34,0.55);
       line-height: 1;
-      text-shadow: 0 2px 14px rgba(0,0,0,0.28);
-      pointer-events: none;
-      z-index: 1;
     }
 
     .s6-strip__body {
@@ -1308,9 +1311,9 @@
       </div>
       <div class="s6-right">
         <div class="s6-strip">
-          <div class="s6-strip__img">
-            <img src="https://raw.githubusercontent.com/rgasienica/estructura-book-servicios-/main/assets/images/webp/equipo_familia.webp" alt="Consulta inicial" loading="lazy">
-            <div class="s6-strip__num">01</div>
+          <div class="s6-strip__icon">
+            <div class="s6-strip__icon-badge"><i class="fa-solid fa-comments"></i></div>
+            <div class="s6-strip__icon-num">01</div>
           </div>
           <div class="s6-strip__body">
             <div class="s6-strip__title">Consulta inicial</div>
@@ -1318,9 +1321,9 @@
           </div>
         </div>
         <div class="s6-strip">
-          <div class="s6-strip__img">
-            <img src="https://raw.githubusercontent.com/rgasienica/estructura-book-servicios-/main/assets/images/webp/papel_pintado_texturas-3.webp" alt="Diseño y confirmación" loading="lazy">
-            <div class="s6-strip__num">02</div>
+          <div class="s6-strip__icon">
+            <div class="s6-strip__icon-badge"><i class="fa-solid fa-swatchbook"></i></div>
+            <div class="s6-strip__icon-num">02</div>
           </div>
           <div class="s6-strip__body">
             <div class="s6-strip__title">Diseño y confirmación</div>
@@ -1328,9 +1331,9 @@
           </div>
         </div>
         <div class="s6-strip">
-          <div class="s6-strip__img">
-            <img src="https://raw.githubusercontent.com/rgasienica/estructura-book-servicios-/main/assets/images/webp/tapizado_sofa.webp" alt="Fabricación" loading="lazy">
-            <div class="s6-strip__num">03</div>
+          <div class="s6-strip__icon">
+            <div class="s6-strip__icon-badge"><i class="fa-solid fa-scissors"></i></div>
+            <div class="s6-strip__icon-num">03</div>
           </div>
           <div class="s6-strip__body">
             <div class="s6-strip__title">Fabricación</div>
@@ -1338,9 +1341,9 @@
           </div>
         </div>
         <div class="s6-strip">
-          <div class="s6-strip__img">
-            <img src="https://raw.githubusercontent.com/rgasienica/estructura-book-servicios-/main/assets/images/webp/cortina_salon_biescas.webp" alt="Instalación y entrega" loading="lazy">
-            <div class="s6-strip__num">04</div>
+          <div class="s6-strip__icon">
+            <div class="s6-strip__icon-badge"><i class="fa-solid fa-tools"></i></div>
+            <div class="s6-strip__icon-num">04</div>
           </div>
           <div class="s6-strip__body">
             <div class="s6-strip__title">Instalación y entrega</div>
