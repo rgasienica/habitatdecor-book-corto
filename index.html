@@ -878,6 +878,19 @@
       margin-bottom: 8px;
     }
     .s10-case__text { font-size: var(--t-sm); color: var(--c-linen); line-height: 1.68; }
+    .s10-icons { display: flex; gap: var(--gap-lg); margin-top: var(--gap-sm); }
+    .s10-icon-item {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 10px; flex: 1;
+    }
+    .s10-icon-item svg {
+      stroke: var(--c-gold); fill: none;
+      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .s10-icon-item span {
+      font-size: var(--t-xs); letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--c-linen); text-align: center; line-height: 1.5;
+    }
 
     .s10-specs   { display: flex; gap: var(--gap-xl); margin-top: var(--gap-sm); }
     .s10-spec__num  { font-family: var(--f-display); font-size: 52px; color: var(--c-gold); line-height: 1; }
@@ -1535,11 +1548,33 @@
         <div class="s10-case">
           <div class="s10-case__block">
             <div class="s10-case__label">Disponibilidad real</div>
-            <div class="s10-case__text">Horario amplio y citas en fines de semana y festivos. Hablas directamente con quienes llevan tu proyecto. Nos desplazamos a tu espacio cuando lo necesitas.</div>
+            <div class="s10-icons">
+              <div class="s10-icon-item">
+                <!-- Maletín con reloj: días laborables / horario amplio -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                  <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+                  <circle cx="17.5" cy="15.5" r="3.5"/>
+                  <polyline points="17.5 14 17.5 15.5 18.5 16.5"/>
+                </svg>
+                <span>Días laborables</span>
+              </div>
+              <div class="s10-icon-item">
+                <!-- Calendario con estrella: fines de semana, festivos y puentes -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                  <polygon points="12 13 13.09 16.26 16.5 16.27 13.86 18.24 14.87 21.5 12 19.54 9.13 21.5 10.14 18.24 7.5 16.27 10.91 16.26 12 13"/>
+                </svg>
+                <span>Fines de semana,<br>festivos y puentes</span>
+              </div>
+            </div>
           </div>
           <div class="s10-case__block">
-            <div class="s10-case__label">Red artesanal coordinada</div>
-            <div class="s10-case__text">Un solo interlocutor para tapicería, textil, mobiliario e instalación. Red propia de artesanos coordinados con respuesta ágil ante cualquier imprevisto o urgencia.</div>
+            <div class="s10-case__label">Disponibilidad real</div>
+            <div class="s10-case__text">Horario amplio y citas en fines de semana y festivos. Hablas directamente con quienes llevan tu proyecto. Nos desplazamos a tu espacio cuando lo necesitas.</div>
           </div>
         </div>
         <div class="s10-specs">
