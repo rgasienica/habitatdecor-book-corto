@@ -1,0 +1,13 @@
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+.gitignore
+
+# Documentos internos del proyecto
+memoria-pdf.md
+skills-lock.json
+
+# Archivos de prueba/desarrollo
+version2_test_pdf.html
+version_print_slide11_ contarportada.png
