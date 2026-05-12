@@ -419,53 +419,69 @@
        SLIDE 05 · SERVICIOS
        ══════════════════════════════════════ */
     .slide-5 {
-      background: var(--c-bg);
-      padding: 56px var(--pad-x) 64px;
-      display: flex; flex-direction: column; gap: 36px;
-    }
-
-    .s5-header { text-align: center; }
-    .s5-eyebrow { font-size: var(--t-xs); letter-spacing: 0.24em; text-transform: uppercase; color: var(--c-gold); margin-bottom: var(--gap-sm); }
-    .s5-title   { font-family: var(--f-display); font-size: var(--t-h2); font-weight: 700; color: var(--c-ink); }
-    .s5-sub     { font-size: var(--t-sm); color: var(--c-ink-soft); margin-top: 10px; }
-
-    .s5-grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-      flex: 1;
+      grid-template-columns: 1fr 1fr;
+      background: var(--c-dark);
     }
 
-    .s5-card {
-      background: var(--c-bg-soft);
-      border: 1.5px solid var(--c-gold);
-      border-radius: 10px;
-      overflow: hidden;
-      display: flex; flex-direction: column;
+    .s5-panel {
       position: relative;
-      box-shadow: var(--sh-sm);
-      transition: transform var(--dur-mid) var(--ease-out), box-shadow var(--dur-mid), border-color var(--dur-mid);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
     }
-    .s5-card:hover { transform: translateY(-5px); box-shadow: var(--sh-md); border-color: rgba(178,134,34,0.9); }
 
-    .s5-card__num {
-      position: absolute;
-      top: 0; left: 10px;
-      font-family: var(--f-display);
-      font-size: clamp(100px, 9vw, 155px);
-      font-weight: 700;
-      color: rgba(255,255,255,0.68);
-      line-height: 1;
-      z-index: 2;
-      pointer-events: none;
-      text-shadow: 0 2px 14px rgba(0,0,0,0.22);
-      letter-spacing: 0;
+    .s5-panel:first-child {
+      border-right: 1px solid rgba(178,134,34,0.3);
     }
-    .s5-card__img   { flex: 1; min-height: 240px; overflow: hidden; margin: 0; border-radius: 0; }
-    .s5-card__img img { width: 100%; height: 100%; object-fit: cover; border-radius: 0; transition: transform 0.7s var(--ease-out); }
-    .s5-card:hover .s5-card__img img { transform: scale(1.06); }
-    .s5-card__title { font-family: var(--f-display); font-size: clamp(15px, 1.3vw, 19px); font-weight: 900; color: var(--c-ink); padding: 13px 12px 5px; letter-spacing: 0.02em; }
-    .s5-card__desc  { font-size: 12px; color: var(--c-ink-soft); padding: 0 12px 12px; line-height: 1.4; }
+
+    .s5-panel img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s var(--ease-out);
+    }
+
+    .s5-panel:hover img {
+      transform: scale(1.04);
+    }
+
+    .s5-caption {
+      position: relative;
+      z-index: 2;
+      padding: 40px var(--pad-x) 52px;
+      background: linear-gradient(to top, rgba(28,25,22,0.90) 55%, rgba(28,25,22,0.45) 80%, transparent 100%);
+    }
+
+    .s5-caption__rule {
+      width: 40px;
+      height: 1.5px;
+      background: var(--c-gold);
+      margin-bottom: 16px;
+    }
+
+    .s5-caption__title {
+      font-family: var(--f-display);
+      font-size: var(--t-h2);
+      color: var(--c-white);
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .s5-caption__title em {
+      font-style: italic;
+      color: var(--c-gold);
+    }
+
+    .s5-caption__text {
+      font-size: var(--t-sm);
+      color: var(--c-linen);
+      line-height: 1.7;
+    }
 
     /* ══════════════════════════════════════
        SLIDE 06 · PROCESO
@@ -742,7 +758,7 @@
       background: var(--c-bg);
       padding: var(--pad-y) var(--pad-x);
       display: flex; flex-direction: column;
-      justify-content: flex-start; gap: var(--gap-md);
+      justify-content: center; gap: var(--gap-xl);
       padding-top: calc(var(--pad-y) * 0.9);
     }
 
@@ -761,12 +777,12 @@
       left: 20px;
       z-index: 2;
     }
-    .s9-title   { font-family: var(--f-display); font-size: var(--t-h1); color: var(--c-ink); line-height: 1.2; }
+    .s9-title   { font-family: var(--f-display); font-size: clamp(40px, 4.8vw, 74px); color: var(--c-ink); line-height: 1.15; }
     .s9-title em { font-style: italic; color: var(--c-gold); }
 
-    .s9-case { display: flex; flex-direction: column; gap: var(--gap-md); }
+    .s9-case { display: flex; flex-direction: column; gap: var(--gap-lg); }
     .s9-case__block {
-      padding: 20px 24px;
+      padding: 24px 28px;
       border-left: 2px solid var(--c-gold);
       background: var(--c-dark2);
       border-radius: 0 3px 3px 0;
@@ -780,9 +796,6 @@
     }
     .s9-case__text { font-size: var(--t-sm); color: var(--c-linen); line-height: 1.68; }
 
-    .s9-specs   { display: flex; gap: var(--gap-xl); margin-top: var(--gap-sm); }
-    .s9-spec__num  { font-family: var(--f-display); font-size: 52px; color: var(--c-gold); line-height: 1; }
-    .s9-spec__text { font-size: var(--t-sm); color: var(--c-ink); margin-top: 6px; }
 
     /* ══════════════════════════════════════
        SLIDE 10 · POR QUÉ ELEGIRNOS
@@ -1264,52 +1277,20 @@
          SLIDE 05 · SERVICIOS
          ════════════════════════════════════ -->
     <section class="slide slide-5">
-      <div class="s5-header">
-        <div class="s5-eyebrow">Nuestros servicios</div>
-        <div class="rule center"></div>
-        <div class="s5-title">Qué hacemos por tu proyecto?</div>
-        <div class="s5-sub">Escuchamos, verificamos juntos. Aplicamos nuestras capacidades resolutivas para poner en marcha lo que necesites</div>
+      <div class="s5-panel">
+        <img src="https://raw.githubusercontent.com/rgasienica/estructura-book-servicios-/main/assets/images/webp/cortina_salon_biescas.webp" alt="Qué ofrecemos" class="slide-img" loading="lazy">
+        <div class="s5-caption">
+          <div class="s5-caption__rule"></div>
+          <div class="s5-caption__title">¿Qué <em>Ofrecemos?</em></div>
+          <div class="s5-caption__text">Ofrecemos un servicio único y a medida a nuestros clientes. Asesoramiento, Ideas, Soluciones, Productos de alta calidad.</div>
+        </div>
       </div>
-      <div class="s5-grid">
-        <div class="s5-card">
-          <div class="s5-card__num">01</div>
-          <div class="s5-card__img">
-            <img src="https://raw.githubusercontent.com/rgasienica/estructura-book-servicios-/main/assets/images/webp/cortina_salon_biescas.webp" alt="Cortinas a medida" loading="lazy">
-          </div>
-          <div class="s5-card__title">Cortinas y estores</div>
-          <div class="s5-card__desc">Diseñamos y realizamos proyectos de cortinas y estores a medida, integrando tejidos, sistemas y instalación para adaptar la luz y la estética de cada espacio.</div>
-        </div>
-        <div class="s5-card">
-          <div class="s5-card__num">02</div>
-          <div class="s5-card__img">
-            <img src="https://raw.githubusercontent.com/rgasienica/estructura-book-servicios-/main/assets/images/webp/tapizado_sofa.webp" alt="Tapicería" loading="lazy">
-          </div>
-          <div class="s5-card__title">Tapicería</div>
-          <div class="s5-card__desc">Llevamos a cabo proyectos de tapicería a medida: renovamos sofás y butacas y diseñamos cabeceros, paneles y tapizados de pared que transforman la estética y el confort de cada espacio.</div>
-        </div>
-        <div class="s5-card">
-          <div class="s5-card__num">03</div>
-          <div class="s5-card__img">
-            <img src="https://github.com/rgasienica/habitat-decor-style-library/blob/main/03-assets/photography/muebles/muebles_hero.jpg?raw=true" alt="Papel pintado" loading="lazy">
-          </div>
-          <div class="s5-card__title">Mueble auxiliar</div>
-          <div class="s5-card__desc">Cuidamos de tu mobiliario auxiliar: renovamos sofás, sillas, butacas y mesas con instalación incluida y retirada del viejo para que tú solo elijas y nosotros hagamos el resto.</div>
-        </div>
-        <div class="s5-card">
-          <div class="s5-card__num">04</div>
-          <div class="s5-card__img">
-            <img src="https://github.com/rgasienica/habitat-decor-style-library/blob/main/03-assets/photography/tapiceria/cabecero_cama_acabado.jpeg?raw=true" alt="Cabeceros" loading="lazy">
-          </div>
-          <div class="s5-card__title">Cabeceros y textil</div>
-          <div class="s5-card__desc">Cada espacio se viste con tapicería y textil a medida que renueva sofás y crea cabeceros, paneles tapizados, colchas y cojines que completan el diseño..</div>
-        </div>
-        <div class="s5-card">
-          <div class="s5-card__num">05</div>
-          <div class="s5-card__img">
-            <img src="https://raw.githubusercontent.com/rgasienica/estructura-book-servicios-/main/assets/images/webp/alfombra.webp" alt="Alfombras" loading="lazy">
-          </div>
-          <div class="s5-card__title">Alfombras y papel pintado</div>
-          <div class="s5-card__desc">Alfombras, moquetas y papel pintado a medida, con instalación profesional, corte de moqueta in situ y colocación de murales para que transformes por completo tu espacio. </div>
+      <div class="s5-panel">
+        <img src="https://github.com/rgasienica/habitat-decor-style-library/blob/main/03-assets/photography/tapiceria/cabecero_cama_acabado.jpeg?raw=true" alt="Marcas exclusivas" class="slide-img" loading="lazy">
+        <div class="s5-caption">
+          <div class="s5-caption__rule"></div>
+          <div class="s5-caption__title">Marcas <em>exclusivas</em></div>
+          <div class="s5-caption__text">Ofrecemos unos productos estudiados con mucho cuidado, con los mejores materiales y tejidos exclusivos.</div>
         </div>
       </div>
     </section>
@@ -1495,20 +1476,6 @@
           <div class="s9-case__block">
             <div class="s9-case__label">A medida · Ajustes en el sitio</div>
             <div class="s9-case__text">No dependemos del catálogo: fabricamos, adaptamos y modificamos según el espacio. Conocemos el sector artesanal de la zona y sabemos exactamente a quién recurrir para cada tarea.</div>
-          </div>
-        </div>
-        <div class="s9-specs">
-          <div>
-            <div class="s9-spec__num">Gran red</div>
-            <div class="s9-spec__text">especialidades</div>
-          </div>
-          <div>
-            <div class="s9-spec__num">1</div>
-            <div class="s9-spec__text">interlocutor</div>
-          </div>
-          <div>
-            <div class="s9-spec__num">0</div>
-            <div class="s9-spec__text">intermediarios</div>
           </div>
         </div>
       </div>

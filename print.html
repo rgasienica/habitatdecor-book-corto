@@ -907,13 +907,13 @@
     /* ══════════════════════════════════════
        SLIDE 11 · CONTACTO
        ══════════════════════════════════════ */
-    .slide-11 { display: grid; grid-template-columns: 1fr; }
+    .slide-11 { display: grid; grid-template-columns: 35fr 65fr; }
 
     .s11-info {
       background: var(--c-dark);
       padding: var(--pad-y) calc(var(--pad-x) * 0.85);
       display: flex; flex-direction: column;
-      justify-content: center; gap: 20px;
+      justify-content: flex-start; gap: 20px;
       overflow: hidden;
     }
     .s11-eyebrow {
@@ -951,16 +951,26 @@
     .s11-hours td:first-child { color: var(--c-sand); width: 80px; font-weight: 600; }
     .s11-hours td.closed { color: rgba(210,191,129,0.4); font-style: italic; }
 
-    .s11-map-sep {
-      height: 1px; flex-shrink: 0; margin: 4px 0 14px;
-      background: linear-gradient(90deg, transparent, rgba(178,134,34,0.55) 15%, rgba(178,134,34,0.55) 85%, transparent);
+    .s11-map-col {
+      background: var(--c-bg-soft);
+      padding: 24px;
+      display: flex;
+      align-items: stretch;
     }
-    .s11-map { border-radius: 4px; overflow: hidden; flex-shrink: 0; }
-    .s11-map iframe { display: block; width: 100%; height: 120px; border: 0; filter: grayscale(0.35) contrast(0.95); }
+    .s11-map-outer {
+      background: var(--c-linen);
+      border-radius: 14px;
+      padding: 14px;
+      flex: 1;
+      display: flex;
+    }
+    .s11-map { border: 2px solid var(--c-gold); border-radius: 10px; overflow: hidden; flex: 1; }
+    .s11-map iframe { display: block; width: 100%; height: 100%; border: 0; filter: grayscale(0.3) contrast(0.95); }
 
     .s11-social {
       display: flex; align-items: center; gap: var(--gap-sm);
       border-top: 1px solid rgba(178,134,34,0.2); padding-top: 12px;
+      margin-top: auto;
     }
     .s11-social__link {
       font-size: 0.62rem; letter-spacing: 0.12em; color: var(--c-sand);
@@ -1596,16 +1606,6 @@
           </table>
         </div>
 
-        <div class="s11-map-sep"></div>
-        <div class="s11-map">
-          <iframe
-            src="https://maps.google.com/maps?q=Calle+Domingo+Miral+1+Jaca+22700+Espa%C3%B1a&output=embed&hl=es&z=16"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            title="Ubicación Habitat &amp; Decor · Jaca">
-          </iframe>
-        </div>
-
         <div class="s11-social">
           <a href="https://instagram.com/habitatdecorjaca/" class="s11-social__link" target="_blank">Instagram</a>
           <span class="s11-social__sep">·</span>
@@ -1615,6 +1615,18 @@
         </div>
       </div>
 
+      <div class="s11-map-col">
+        <div class="s11-map-outer">
+          <div class="s11-map">
+            <iframe
+              src="https://maps.google.com/maps?q=Calle+Domingo+Miral+1+Jaca+22700+Espa%C3%B1a&output=embed&hl=es&z=16"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Ubicación Habitat &amp; Decor · Jaca">
+            </iframe>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ── CONTROLES ── -->
