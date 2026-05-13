@@ -1608,7 +1608,7 @@
 
           <div class="s11-form-notice" id="s11FormResponse"></div>
 
-          <form id="s11ContactForm" action="../procesar-formulario.php" method="POST" novalidate>
+          <form id="s11ContactForm" action="https://habitatdecor.es/procesar-formulario.php" method="POST" novalidate>
           <input type="hidden" name="origen"   value="book-slide11">
           <input type="hidden" name="servicio" value="Consulta general">
 
@@ -1828,12 +1828,12 @@
       try {
         const res  = await fetch(form.action, { method: 'POST', body: new FormData(form) });
         const data = await res.json().catch(function () { return {}; });
-        if (res.ok && data.ok !== false) {
-          notice.textContent = data.mensaje || '¡Mensaje enviado! Te contactamos pronto.';
+        if (res.ok && data.success !== false) {
+          notice.textContent = data.message || '¡Mensaje enviado! Te contactamos pronto.';
           notice.className   = 's11-form-notice ok';
           form.reset();
         } else {
-          throw new Error(data.mensaje || 'Error al enviar');
+          throw new Error(data.message || 'Error al enviar');
         }
       } catch (err) {
         notice.textContent = err.message || 'Error de conexión. Inténtalo de nuevo.';

@@ -65,6 +65,9 @@
       --z-fullscreen: 800;
     }
 
+    /* ══════════════════════════════════════
+       RESET & BASE
+       ══════════════════════════════════════ */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
@@ -77,7 +80,9 @@
 
     img { display: block; }
 
-    /* ── Global utilities ── */
+    /* ══════════════════════════════════════
+       UTILIDADES GLOBALES · igual que templates
+       ══════════════════════════════════════ */
     .eyebrow {
       font-size: var(--t-xs);
       font-weight: 600;
@@ -114,7 +119,9 @@
       color: rgba(60,60,60,0.85);
     }
 
-    /* ── Layout — stage 1440×810 ── */
+    /* ══════════════════════════════════════
+       LAYOUT — stage 1920×1080
+       ══════════════════════════════════════ */
     .slide-wrapper {
       position: fixed;
       inset: 0;
@@ -224,72 +231,6 @@
       display: flex; align-items: center; justify-content: center;
     }
     .fullscreen-btn:hover { background: var(--c-gold); color: var(--c-white); }
-
-    /* ── Botón PDF ── */
-    .pdf-btn {
-      width: 50px; height: 50px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(178,134,34,0.65);
-      background: rgba(28,25,22,0.75);
-      color: var(--c-gold);
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      transition: all var(--dur-fast);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 2px 14px rgba(0,0,0,0.25), inset 0 1px 0 rgba(178,134,34,0.15);
-      display: flex; align-items: center; justify-content: center;
-      text-decoration: none;
-      font-family: var(--f-body);
-    }
-    .pdf-btn:hover {
-      background: var(--c-gold);
-      color: var(--c-dark);
-      border-color: var(--c-gold);
-      box-shadow: 0 4px 20px rgba(178,134,34,0.45);
-      transform: scale(1.06);
-    }
-    .pdf-btn:disabled {
-      opacity: 0.2;
-      cursor: default;
-      pointer-events: none;
-    }
-
-    /* ── Dots de navegación ── */
-    .nav-dots {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .nav-dot {
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      cursor: pointer;
-      flex-shrink: 0;
-      padding: 0;
-      display: flex; align-items: center; justify-content: center;
-      background: transparent;
-      border: none;
-    }
-    .nav-dot::after {
-      content: '';
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: rgba(242,239,236,0.28);
-      border: 1px solid rgba(178,134,34,0.45);
-      transition: all var(--dur-fast);
-      display: block;
-    }
-    .nav-dot.active::after {
-      background: var(--c-gold);
-      border-color: var(--c-gold);
-      transform: scale(1.4);
-    }
-    .nav-dot:hover::after {
-      background: rgba(178,134,34,0.7);
-      border-color: var(--c-gold);
-    }
 
     /* ══════════════════════════════════════
        SLIDE 01 · PORTADA
@@ -436,6 +377,7 @@
       display: block;
       transition: transform var(--dur-slow) var(--ease-out);
     }
+    /* Foco en personas: ajuste individual por imagen */
     .s3-photo__item:nth-child(1) img { object-position: center 20%; }
     .s3-photo__item:nth-child(2) img { object-position: center 55%; }
     .s3-photo__item:nth-child(3) img { object-position: center 30%; }
@@ -478,9 +420,12 @@
        SLIDE 05 · SERVICIOS
        ══════════════════════════════════════ */
     .slide-5 {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
       background: var(--c-bg);
-      padding: 56px var(--pad-x) 64px;
-      display: flex; flex-direction: column; gap: 36px;
+      padding: var(--pad-y) var(--pad-x) 48px;
+      gap: var(--gap-md);
     }
 
     .s5-header { text-align: center; }
@@ -488,43 +433,81 @@
     .s5-title   { font-family: var(--f-display); font-size: var(--t-h2); font-weight: 700; color: var(--c-ink); }
     .s5-sub     { font-size: var(--t-sm); color: var(--c-ink-soft); margin-top: 10px; }
 
-    .s5-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
+    .s5-cards {
+      display: flex;
+      gap: var(--gap-xl);
       flex: 1;
+      min-height: 0;
     }
 
     .s5-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
       background: var(--c-bg-soft);
       border: 1.5px solid var(--c-gold);
       border-radius: 10px;
       overflow: hidden;
-      display: flex; flex-direction: column;
-      position: relative;
-      box-shadow: var(--sh-sm);
+      box-shadow: var(--sh-md);
       transition: transform var(--dur-mid) var(--ease-out), box-shadow var(--dur-mid), border-color var(--dur-mid);
     }
-    .s5-card:hover { transform: translateY(-5px); box-shadow: var(--sh-md); border-color: rgba(178,134,34,0.9); }
 
-    .s5-card__num {
-      position: absolute;
-      top: 0; left: 10px;
-      font-family: var(--f-display);
-      font-size: clamp(100px, 9vw, 155px);
-      font-weight: 700;
-      color: rgba(255,255,255,0.68);
-      line-height: 1;
-      z-index: 2;
-      pointer-events: none;
-      text-shadow: 0 2px 14px rgba(0,0,0,0.22);
-      letter-spacing: 0;
+    .s5-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 40px rgba(60,60,60,.15);
+      border-color: rgba(178,134,34,0.9);
     }
-    .s5-card__img   { flex: 1; min-height: 240px; overflow: hidden; margin: 0; border-radius: 0; }
-    .s5-card__img img { width: 100%; height: 100%; object-fit: cover; border-radius: 0; transition: transform 0.7s var(--ease-out); }
-    .s5-card:hover .s5-card__img img { transform: scale(1.06); }
-    .s5-card__title { font-family: var(--f-display); font-size: clamp(15px, 1.3vw, 19px); font-weight: 900; color: var(--c-ink); padding: 13px 12px 5px; letter-spacing: 0.02em; }
-    .s5-card__desc  { font-size: 12px; color: var(--c-ink-soft); padding: 0 12px 12px; line-height: 1.4; }
+
+    .s5-card__img-wrap {
+      position: relative;
+      overflow: hidden;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .s5-card__img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s var(--ease-out);
+    }
+
+    .s5-card:hover .s5-card__img-wrap img {
+      transform: scale(1.06);
+    }
+
+    .s5-card__caption {
+      padding: 28px 36px 36px;
+      background: var(--c-white);
+      border-top: 1px solid var(--c-linen);
+    }
+
+    .s5-card__rule {
+      width: 40px;
+      height: 1.5px;
+      background: var(--c-gold);
+      margin-bottom: 14px;
+    }
+
+    .s5-card__title {
+      font-family: var(--f-display);
+      font-size: var(--t-h2);
+      color: var(--c-ink);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .s5-card__title em {
+      font-style: italic;
+      color: var(--c-gold);
+    }
+
+    .s5-card__text {
+      font-size: var(--t-sm);
+      color: var(--c-ink-soft);
+      line-height: 1.7;
+    }
 
     /* ══════════════════════════════════════
        SLIDE 06 · PROCESO
@@ -801,7 +784,7 @@
       background: var(--c-bg);
       padding: var(--pad-y) var(--pad-x);
       display: flex; flex-direction: column;
-      justify-content: flex-start; gap: var(--gap-md);
+      justify-content: center; gap: var(--gap-xl);
       padding-top: calc(var(--pad-y) * 0.9);
     }
 
@@ -820,12 +803,12 @@
       left: 20px;
       z-index: 2;
     }
-    .s9-title   { font-family: var(--f-display); font-size: var(--t-h1); color: var(--c-ink); line-height: 1.2; }
+    .s9-title   { font-family: var(--f-display); font-size: clamp(40px, 4.8vw, 74px); color: var(--c-ink); line-height: 1.15; }
     .s9-title em { font-style: italic; color: var(--c-gold); }
 
-    .s9-case { display: flex; flex-direction: column; gap: var(--gap-md); }
+    .s9-case { display: flex; flex-direction: column; gap: var(--gap-lg); }
     .s9-case__block {
-      padding: 20px 24px;
+      padding: 24px 28px;
       border-left: 2px solid var(--c-gold);
       background: var(--c-dark2);
       border-radius: 0 3px 3px 0;
@@ -839,9 +822,6 @@
     }
     .s9-case__text { font-size: var(--t-sm); color: var(--c-linen); line-height: 1.68; }
 
-    .s9-specs   { display: flex; gap: var(--gap-xl); margin-top: var(--gap-sm); }
-    .s9-spec__num  { font-family: var(--f-display); font-size: 52px; color: var(--c-gold); line-height: 1; }
-    .s9-spec__text { font-size: var(--t-sm); color: var(--c-ink); margin-top: 6px; }
 
     /* ══════════════════════════════════════
        SLIDE 10 · POR QUÉ ELEGIRNOS
@@ -899,6 +879,19 @@
       margin-bottom: 8px;
     }
     .s10-case__text { font-size: var(--t-sm); color: var(--c-linen); line-height: 1.68; }
+    .s10-icons { display: flex; gap: var(--gap-lg); margin-top: var(--gap-sm); }
+    .s10-icon-item {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 10px; flex: 1;
+    }
+    .s10-icon-item svg {
+      stroke: var(--c-gold); fill: none;
+      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .s10-icon-item span {
+      font-size: var(--t-xs); letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--c-linen); text-align: center; line-height: 1.5;
+    }
 
     .s10-specs   { display: flex; gap: var(--gap-xl); margin-top: var(--gap-sm); }
     .s10-spec__num  { font-family: var(--f-display); font-size: 52px; color: var(--c-gold); line-height: 1; }
@@ -909,6 +902,7 @@
        ══════════════════════════════════════ */
     .slide-11 { display: grid; grid-template-columns: 35fr 65fr; }
 
+    /* — Panel oscuro izquierdo — */
     .s11-info {
       background: var(--c-dark);
       padding: var(--pad-y) calc(var(--pad-x) * 0.85);
@@ -951,25 +945,9 @@
     .s11-hours td:first-child { color: var(--c-sand); width: 80px; font-weight: 600; }
     .s11-hours td.closed { color: rgba(210,191,129,0.4); font-style: italic; }
 
-    .s11-map-col {
-      background: var(--c-bg-soft);
-      padding: 24px;
-      display: flex;
-      align-items: stretch;
-    }
-    .s11-map-outer {
-      background: var(--c-linen);
-      border-radius: 14px;
-      padding: 14px;
-      flex: 1;
-      display: flex;
-    }
-    .s11-map { border: 2px solid var(--c-gold); border-radius: 10px; overflow: hidden; flex: 1; }
-    .s11-map iframe { display: block; width: 100%; height: 100%; border: 0; filter: grayscale(0.3) contrast(0.95); }
-
     .s11-social {
       display: flex; align-items: center; gap: var(--gap-sm);
-      border-top: 1px solid rgba(178,134,34,0.2); padding-top: 12px;
+      border-top: 1px solid rgba(178,134,34,0.2); padding-top: 14px;
       margin-top: auto;
     }
     .s11-social__link {
@@ -979,20 +957,31 @@
     .s11-social__link:hover { color: var(--c-gold); }
     .s11-social__sep { color: rgba(210,191,129,0.3); font-size: 9px; }
 
-    .s11-form-panel {
+    /* — Panel crema derecho: mapa para versión PDF — */
+    .s11-map-panel {
       background: var(--c-bg);
-      padding: var(--pad-y) var(--pad-x) 90px;
-      display: flex; flex-direction: column;
-      justify-content: flex-start; gap: 0;
+      padding: 36px 28px 54px 42px;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
       overflow: hidden;
     }
-    .s11-form-card {
+    .s11-map-card {
+      width: 100%;
+      height: 100%;
       border: 1.5px solid rgba(178,134,34,0.65);
       border-radius: 10px;
-      padding: 24px 28px;
       background: var(--c-white);
       box-shadow: var(--sh-sm);
-      display: flex; flex-direction: column; gap: 8px;
+      overflow: hidden;
+    }
+    .s11-map-card iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 680px;
+      border: 0;
+      filter: saturate(0.82) contrast(0.94);
     }
     .s11-form-header {
       font-family: var(--f-display);
@@ -1015,6 +1004,7 @@
       flex-shrink: 0;
     }
 
+    /* Notices — estilo web */
     .s11-form-notice {
       display: none; padding: 0.9rem 1.1rem; border-radius: var(--r);
       font-size: 0.85rem; font-weight: 500;
@@ -1024,6 +1014,7 @@
 
     .s11-form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 
+    /* Grupos de campo — extraídos de contacto.html */
     .s11-fg { margin-bottom: 0.45rem; }
     .s11-fg label {
       display: block; font-size: 0.64rem; font-weight: 600;
@@ -1048,6 +1039,7 @@
     }
     .s11-fg textarea { resize: none; }
 
+    /* Botón — estilo web */
     .s11-btn-submit {
       width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.6rem;
       font-family: var(--f-body); font-size: 0.72rem; font-weight: 600;
@@ -1063,9 +1055,77 @@
     .s11-btn-submit:hover i { transform: translateX(4px); }
     .s11-btn-submit:disabled { opacity: 0.55; cursor: not-allowed; }
 
+    /* Legal — estilo web */
     .s11-legal { margin-top: 0.25rem; font-size: 0.72rem; color: var(--c-ink-soft); line-height: 1.6; text-align: center; }
     .s11-legal a { color: var(--c-gold); }
     .s11-legal a:hover { text-decoration: underline; }
+
+    /* ── Botón PDF ── */
+    .pdf-btn {
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(178,134,34,0.65);
+      background: rgba(28,25,22,0.75);
+      color: var(--c-gold);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: all var(--dur-fast);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 14px rgba(0,0,0,0.25), inset 0 1px 0 rgba(178,134,34,0.15);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+    }
+    .pdf-btn:hover {
+      background: var(--c-gold);
+      color: var(--c-dark);
+      border-color: var(--c-gold);
+      box-shadow: 0 4px 20px rgba(178,134,34,0.45);
+      transform: scale(1.06);
+    }
+
+    /* ── Dots de navegación ── */
+    .nav-dots {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(242,239,236,0.25);
+      border: 1px solid rgba(178,134,34,0.35);
+      cursor: pointer;
+      transition: all var(--dur-fast);
+      flex-shrink: 0;
+      padding: 0;
+      min-width: 44px; min-height: 44px;
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent;
+      border: none;
+    }
+    .nav-dot::after {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(242,239,236,0.28);
+      border: 1px solid rgba(178,134,34,0.45);
+      transition: all var(--dur-fast);
+      display: block;
+    }
+    .nav-dot.active::after {
+      background: var(--c-gold);
+      border-color: var(--c-gold);
+      transform: scale(1.4);
+    }
+    .nav-dot:hover::after {
+      background: rgba(178,134,34,0.7);
+      border-color: var(--c-gold);
+    }
+
+
 
     /* ══════════════════════════════════════
        PDF LOADER & CAPTURING
@@ -1098,7 +1158,7 @@
     @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ══════════════════════════════════════
-       PRINT STYLES
+       PRINT
        ══════════════════════════════════════ */
     @media print {
       .slide-controls, .fullscreen-btn, .progress-bar, .pdf-loader { display: none !important; }
@@ -1244,7 +1304,8 @@
         <div class="rule"></div>
         <div class="s3-title">Cuando un proyecto necesita algo más, sabemos cómo resolverlo</div>
         <div class="s3-body">
-          Nuestra relación con talleres y profesionales artesanos de confianza nos permite coordinar soluciones rápidas, precisas y adaptadas a cada espacio.
+          Nuestra relación con talleres y profesionales artesanos de confianza nos permite coordinar soluciones rápidas, precisas y adaptadas a cada espacio.<br>
+              
         </div>
         <div class="s3-signature">
           <div class="s3-signature__line"></div>
@@ -1268,7 +1329,7 @@
         <div class="rule"></div>
         <div class="s4-title">Taller familiar<br>en el corazón<br>del Pirineo.</div>
         <div class="s4-body">
-          Trabajamos desde Jaca en el Pirineo de Aragón. Un equipo de profesionales coordinados, manos expertas y un compromiso: que cada proyecto se haga y se revise perfectamente antes de salir del taller.
+          Trabajamos desde Jaca en el Pirineo de Aragón. Un equipo de profesionales coordinados, manos expertas y un compromiso: </b>que cada proyecto se haga y se revise perfectamente antes de salir del taller.</b>
         </div>
         <div class="s4-contact">
           <div class="s4-contact__item">
@@ -1297,46 +1358,26 @@
         <div class="s5-title">Qué hacemos por tu proyecto?</div>
         <div class="s5-sub">Escuchamos, verificamos juntos. Aplicamos nuestras capacidades resolutivas para poner en marcha lo que necesites</div>
       </div>
-      <div class="s5-grid">
+      <div class="s5-cards">
         <div class="s5-card">
-          <div class="s5-card__num">01</div>
-          <div class="s5-card__img">
-            <img src="https://raw.githubusercontent.com/rgasienica/estructura-book-servicios-/main/assets/images/webp/cortina_salon_biescas.webp" alt="Cortinas a medida" loading="lazy">
+          <div class="s5-card__img-wrap">
+            <img src="https://raw.githubusercontent.com/rgasienica/estructura-book-servicios-/main/assets/images/webp/cortina_salon_biescas.webp" alt="Qué ofrecemos" class="slide-img" loading="lazy">
           </div>
-          <div class="s5-card__title">Cortinas y estores</div>
-          <div class="s5-card__desc">Diseñamos y realizamos proyectos de cortinas y estores a medida, integrando tejidos, sistemas y instalación para adaptar la luz y la estética de cada espacio.</div>
+          <div class="s5-card__caption">
+            <div class="s5-card__rule"></div>
+            <div class="s5-card__title">¿Qué <em>Ofrecemos?</em></div>
+            <div class="s5-card__text">Ofrecemos un servicio único y a medida a nuestros clientes. Asesoramiento, Ideas, Soluciones, Productos de alta calidad.</div>
+          </div>
         </div>
         <div class="s5-card">
-          <div class="s5-card__num">02</div>
-          <div class="s5-card__img">
-            <img src="https://raw.githubusercontent.com/rgasienica/estructura-book-servicios-/main/assets/images/webp/tapizado_sofa.webp" alt="Tapicería" loading="lazy">
+          <div class="s5-card__img-wrap">
+            <img src="https://raw.githubusercontent.com/rgasienica/habitat-decor-style-library/main/03-assets/photography/tapiceria/cabecero_cama_acabado.jpeg" alt="Marcas exclusivas" class="slide-img" loading="lazy">
           </div>
-          <div class="s5-card__title">Tapicería</div>
-          <div class="s5-card__desc">Llevamos a cabo proyectos de tapicería a medida: renovamos sofás y butacas y diseñamos cabeceros, paneles y tapizados de pared que transforman la estética y el confort de cada espacio.</div>
-        </div>
-        <div class="s5-card">
-          <div class="s5-card__num">03</div>
-          <div class="s5-card__img">
-            <img src="https://raw.githubusercontent.com/rgasienica/habitat-decor-style-library/main/03-assets/photography/muebles/muebles_hero.jpg" alt="Papel pintado" loading="lazy">
+          <div class="s5-card__caption">
+            <div class="s5-card__rule"></div>
+            <div class="s5-card__title">Marcas <em>exclusivas</em></div>
+            <div class="s5-card__text">Ofrecemos unos productos estudiados con mucho cuidado, con los mejores materiales y tejidos exclusivos.</div>
           </div>
-          <div class="s5-card__title">Mueble auxiliar</div>
-          <div class="s5-card__desc">Cuidamos de tu mobiliario auxiliar: renovamos sofás, sillas, butacas y mesas con instalación incluida y retirada del viejo para que tú solo elijas y nosotros hagamos el resto.</div>
-        </div>
-        <div class="s5-card">
-          <div class="s5-card__num">04</div>
-          <div class="s5-card__img">
-            <img src="https://raw.githubusercontent.com/rgasienica/habitat-decor-style-library/main/03-assets/photography/tapiceria/cabecero_cama_acabado.jpeg" alt="Cabeceros" loading="lazy">
-          </div>
-          <div class="s5-card__title">Cabeceros y textil</div>
-          <div class="s5-card__desc">Cada espacio se viste con tapicería y textil a medida que renueva sofás y crea cabeceros, paneles tapizados, colchas y cojines que completan el diseño.</div>
-        </div>
-        <div class="s5-card">
-          <div class="s5-card__num">05</div>
-          <div class="s5-card__img">
-            <img src="https://raw.githubusercontent.com/rgasienica/estructura-book-servicios-/main/assets/images/webp/alfombra.webp" alt="Alfombras" loading="lazy">
-          </div>
-          <div class="s5-card__title">Alfombras y papel pintado</div>
-          <div class="s5-card__desc">Alfombras, moquetas y papel pintado a medida, con instalación profesional, corte de moqueta in situ y colocación de murales para que transformes por completo tu espacio.</div>
         </div>
       </div>
     </section>
@@ -1361,7 +1402,7 @@
           </div>
           <div class="s6-strip__body">
             <div class="s6-strip__title">Consulta inicial</div>
-            <div class="s6-strip__desc">Te visitamos o vienes a nuestro showroom: tomamos medidas, revisamos catálogos y te enseñamos muestras de tejido para que puedas tocar y comparar con los ejemplos digitales.</div>
+            <div class="s6-strip__desc">e visitamos o vienes a nuestro showroom: tomamos medidas, revisamos catálogos y te enseñamos muestras de tejido para que puedas tocar y comparar con los ejemplos digitales.</div>
           </div>
         </div>
         <div class="s6-strip">
@@ -1380,7 +1421,7 @@
             <div class="s6-strip__icon-num">03</div>
           </div>
           <div class="s6-strip__body">
-            <div class="s6-strip__title">Puesta en marcha · Fabricación</div>
+            <div class="s6-strip__title">Puesta en marcha · Fabricación </div>
             <div class="s6-strip__desc">Ponemos tu proyecto en marcha en nuestro taller. Seguimiento semanal del estado del proyecto.</div>
           </div>
         </div>
@@ -1410,7 +1451,7 @@
       </div>
       <div class="s7-panel">
         <div class="rule"></div>
-        <div class="s7-title">Hotel Canfranc Estación<br><span style="font-size:0.65em; color:var(--c-gold);">Gran Lujo ★★★★★</span></div>
+        <div class="s7-title">Hotel Canfranc Esatción<br><span style="font-size:0.65em; color:var(--c-gold);">Gran Lujo ★★★★★</span></div>
         <div class="s7-case">
           <div class="s7-case__block">
             <div class="s7-case__label">Reto</div>
@@ -1524,20 +1565,6 @@
             <div class="s9-case__text">No dependemos del catálogo: fabricamos, adaptamos y modificamos según el espacio. Conocemos el sector artesanal de la zona y sabemos exactamente a quién recurrir para cada tarea.</div>
           </div>
         </div>
-        <div class="s9-specs">
-          <div>
-            <div class="s9-spec__num">Gran red</div>
-            <div class="s9-spec__text">especialidades</div>
-          </div>
-          <div>
-            <div class="s9-spec__num">1</div>
-            <div class="s9-spec__text">interlocutor</div>
-          </div>
-          <div>
-            <div class="s9-spec__num">0</div>
-            <div class="s9-spec__text">intermediarios</div>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -1558,24 +1585,46 @@
         <div class="s10-case">
           <div class="s10-case__block">
             <div class="s10-case__label">Disponibilidad real</div>
-            <div class="s10-case__text">Horario amplio y citas en fines de semana y festivos. Hablas directamente con quienes llevan tu proyecto. Nos desplazamos a tu espacio cuando lo necesitas.</div>
+            <div class="s10-icons">
+              <div class="s10-icon-item">
+                <!-- Maletín con reloj: días laborables / horario amplio -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                  <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+                  <circle cx="17.5" cy="15.5" r="3.5"/>
+                  <polyline points="17.5 14 17.5 15.5 18.5 16.5"/>
+                </svg>
+                <span>Días laborables</span>
+              </div>
+              <div class="s10-icon-item">
+                <!-- Calendario con estrella: fines de semana, festivos y puentes -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                  <polygon points="12 13 13.09 16.26 16.5 16.27 13.86 18.24 14.87 21.5 12 19.54 9.13 21.5 10.14 18.24 7.5 16.27 10.91 16.26 12 13"/>
+                </svg>
+                <span>Fines de semana,<br>festivos y puentes</span>
+              </div>
+            </div>
           </div>
           <div class="s10-case__block">
-            <div class="s10-case__label">Red artesanal coordinada</div>
-            <div class="s10-case__text">Un solo interlocutor para tapicería, textil, mobiliario e instalación. Red propia de artesanos coordinados con respuesta ágil ante cualquier imprevisto o urgencia.</div>
+            <div class="s10-case__label">Disponibilidad real</div>
+            <div class="s10-case__text">Horario amplio y citas en fines de semana y festivos. <br>Hablas directamente con quienes llevan tu proyecto. <br>Nos desplazamos a tu espacio cuando lo necesitas.</div>
           </div>
         </div>
         <div class="s10-specs">
           <div>
-            <div class="s10-spec__num">24 horas</div>
-            <div class="s10-spec__text">disponibilidad WhatsApp</div>
+            <div class="s10-spec__num">24h</div>
+            <div class="s10-spec__text">disponiblidad WhatsApp</div>
           </div>
           <div>
             <div class="s10-spec__num">1 día</div>
             <div class="s10-spec__text">respuesta casi inmediata</div>
           </div>
           <div>
-            <div class="s10-spec__num">48 horas</div>
+            <div class="s10-spec__num">48h</div>
             <div class="s10-spec__text">presupuesto</div>
           </div>
         </div>
@@ -1586,6 +1635,8 @@
          SLIDE 11 · CONTACTO
          ════════════════════════════════════ -->
     <section class="slide slide-11">
+
+      <!-- Columna izquierda: información de contacto -->
       <div class="s11-info">
         <div class="s11-eyebrow">Contacto</div>
         <h2 class="s11-title">¿Hablamos de<br>tu proyecto?</h2>
@@ -1615,18 +1666,18 @@
         </div>
       </div>
 
-      <div class="s11-map-col">
-        <div class="s11-map-outer">
-          <div class="s11-map">
-            <iframe
-              src="https://maps.google.com/maps?q=Calle+Domingo+Miral+1+Jaca+22700+Espa%C3%B1a&output=embed&hl=es&z=16"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              title="Ubicación Habitat &amp; Decor · Jaca">
-            </iframe>
-          </div>
+      <!-- Columna derecha: mapa grande para versión imprimible -->
+      <div class="s11-map-panel">
+        <div class="s11-map-card">
+          <iframe
+            src="https://maps.google.com/maps?q=Calle+Domingo+Miral+1+Jaca+22700+Espa%C3%B1a&output=embed&hl=es&z=16"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Ubicación Habitat &amp; Decor · Jaca">
+          </iframe>
         </div>
       </div>
+
     </section>
 
     <!-- ── CONTROLES ── -->
@@ -1714,12 +1765,13 @@
     if (e.key === 'f' || e.key === 'F') toggleFullscreen();
   });
 
-  /* ── Touch ── */
+  /* ── Touch mejorado ── */
   let touchStartX = 0;
   let touchStartY = 0;
   document.addEventListener('touchstart', e => {
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
+    /* Auto-fullscreen en primer toque (requiere gesto de usuario) */
     if (firstTap) {
       firstTap = false;
       if (!document.fullscreenElement) {
